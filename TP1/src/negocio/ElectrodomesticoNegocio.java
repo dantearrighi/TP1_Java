@@ -52,13 +52,6 @@ public class ElectrodomesticoNegocio {
 		
 	}
 	
-	
-	
-	
-	
-	
-	
-
 	protected float  precioFinal(char pConsumo, float pPeso, float pPrecioBase)
 	{
 		precioFinal = pPrecioBase;
@@ -105,7 +98,6 @@ public class ElectrodomesticoNegocio {
 		return precioFinal;
 		
 	}
-
 
 
 }
