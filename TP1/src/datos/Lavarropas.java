@@ -37,9 +37,10 @@ public class Lavarropas extends Electrodomestico
 	}
 	
 	//Constructor 3
-	public Lavarropas(float pPrecio, float pPeso, consumo pConsumo, String pColor, float pCarga)
+	public Lavarropas(String pDescripcion, float pPrecio, float pPeso, consumo pConsumo, String pColor, float pCarga)
 	{
 		this();
+		this.setDescripcion(pDescripcion);
 		this.setPreciobase(pPrecio);
 		this.setCarga(pCarga);
 		this.setColor(pColor);
@@ -48,9 +49,9 @@ public class Lavarropas extends Electrodomestico
 				
 	}
 
-	public int AddLavarrop(float pPrecio,float pPeso, String pColor, consumo pConsumo, float pCarga)
+	public int AddLavarrop(String pDescripcion, float pPrecio,float pPeso, String pColor, consumo pConsumo, float pCarga)
 	{
-		String SQLCons= "INSERT INTO Electrodomesticos (color_elect, consumo_elect, peso_elect ,precio_elect, carga_lava) VALUES ("+ pColor +","+ pConsumo + "," + pPeso+ "," + pPrecio+","+pCarga;
+		String SQLCons= "INSERT INTO Electrodomesticos (descripcion, color_elect, consumo_elect, peso_elect ,precio_elect, carga_lava) VALUES ("+pDescripcion+","+ pColor +","+ pConsumo + "," + pPeso+ "," + pPrecio+","+pCarga;
 	ConexionBD conecta = new ConexionBD();
 	conecta.OpenConection();
 	Statement stmt = null;
@@ -90,7 +91,7 @@ public class Lavarropas extends Electrodomestico
 		}
 	public int UpdateElect (Lavarropas Lavarr)
 	{
-		String SQLCons= "UPDATE Electrodomesticos SET (color_elect="+Lavarr.getColor()+", consumo_elect="+Lavarr.getConsumoEnergetico()+", precio_elect="+Lavarr.getPreciobase()+", peso_elect="+Lavarr.getPeso()+ ", carga_lava="+Lavarr.getCarga()+") WHERE"+Lavarr.getIdElect()+"=Electrodomesticos.id_electro";
+		String SQLCons= "UPDATE Electrodomesticos SET ( descripcion="+Lavarr.getDescripcion()+",color_elect="+Lavarr.getColor()+", consumo_elect="+Lavarr.getConsumoEnergetico()+", precio_elect="+Lavarr.getPreciobase()+", peso_elect="+Lavarr.getPeso()+ ", carga_lava="+Lavarr.getCarga()+") WHERE"+Lavarr.getIdElect()+"=Electrodomesticos.id_electro";
 		ConexionBD conecta = new ConexionBD();
 		conecta.OpenConection();
 		Statement stmt = null;
@@ -122,23 +123,26 @@ public class Lavarropas extends Electrodomestico
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				try {
+				/*try {
 					 ResultSet rta = stmt.executeQuery(SQLCons);
 					} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
+				*/
 				try {
+					ResultSet rta = stmt.executeQuery(SQLCons);
 					for (i=0;i>stmt.getFetchSize();i++)
 						{
 							try {
-								ElectroDev[i].setColor(stmt.executeQuery(SQLCons).getNString("color_elect")); 
-								ElectroDev[i].setConsumoEnergetico((Electrodomestico.consumo)stmt.executeQuery(SQLCons).getObject("consumo_elect"));
-								ElectroDev[i].setIdElect(stmt.executeQuery(SQLCons).getInt("id_electro")); 
-								ElectroDev[i].setPreciobase(stmt.executeQuery(SQLCons).getFloat("precio_elect"));
-								ElectroDev[i].setPeso(stmt.executeQuery(SQLCons).getFloat("peso_elect"));
-								ElectroDev[i].setCarga(stmt.executeQuery(SQLCons).getFloat("carga_lava"));
+								ElectroDev[i].setDescripcion(rta.getNString("descripcion"));
+								ElectroDev[i].setColor(rta.getNString("color_elect")); 
+								ElectroDev[i].setConsumoEnergetico((Electrodomestico.consumo)rta.getObject("consumo_elect"));
+								ElectroDev[i].setIdElect(rta.getInt("id_electro")); 
+								ElectroDev[i].setPreciobase(rta.getFloat("precio_elect"));
+								ElectroDev[i].setPeso(rta.getFloat("peso_elect"));
+								ElectroDev[i].setCarga(rta.getFloat("carga_lava"));
+								rta.next();
 								} catch (SQLException e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
@@ -164,20 +168,23 @@ public class Lavarropas extends Electrodomestico
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				try {
+				/*try {
 					 ResultSet rta = stmt.executeQuery(SQLCons);
 					} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
+				*/
 				try {
-						ElectroDev.setColor(stmt.executeQuery(SQLCons).getNString("color_elect"));
-						ElectroDev.setConsumoEnergetico((Electrodomestico.consumo)stmt.executeQuery(SQLCons).getObject("consumo_elect"));
-						ElectroDev.setIdElect(stmt.executeQuery(SQLCons).getInt("id_electro"));
-						ElectroDev.setPreciobase(stmt.executeQuery(SQLCons).getFloat("precio_elect"));
-						ElectroDev.setPeso(stmt.executeQuery(SQLCons).getFloat("peso_elect"));
-						ElectroDev.setCarga(stmt.executeQuery(SQLCons).getFloat("carga_lava"));
+						ResultSet rta = stmt.executeQuery(SQLCons);
+						ElectroDev.setDescripcion(rta.getNString("descripcion"));
+						ElectroDev.setColor(rta.getNString("color_elect"));
+						ElectroDev.setConsumoEnergetico((Electrodomestico.consumo)rta.getObject("consumo_elect"));
+						ElectroDev.setIdElect(rta.getInt("id_electro"));
+						ElectroDev.setPreciobase(rta.getFloat("precio_elect"));
+						ElectroDev.setPeso(rta.getFloat("peso_elect"));
+						ElectroDev.setCarga(rta.getFloat("carga_lava"));
+						/*rta.next();*/ /*Es un solo elemento*/
 					} catch (SQLException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -185,5 +192,143 @@ public class Lavarropas extends Electrodomestico
 		return ElectroDev;		
 	}
 
+	public Lavarropas[] GetxConsumo (consumo pConsumo)
+	{
+		Lavarropas[] ElectroDev = null;
+		int i;
+		String SQLCons= "Select * FROM Electrodomestico WHERE (carga_lava is not null AND consumo_elect="+pConsumo+"ORDER BY descripcion";
+		ConexionBD conecta = new ConexionBD();
+		conecta.OpenConection();
+		Statement stmt = null;
+				try {
+					stmt = conecta.Cone.createStatement();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				/*
+				 * try {
+					 ResultSet rta = stmt.executeQuery(SQLCons);
+					} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				*/
+				try {
+					ResultSet rta = stmt.executeQuery(SQLCons);
+					for (i=0;i>stmt.getFetchSize();i++)
+						{
+							try {
+								ElectroDev[i].setDescripcion(rta.getNString("descripcion"));
+								ElectroDev[i].setColor(rta.getNString("color_elect"));							
+								ElectroDev[i].consumoEnergetico = (Electrodomestico.consumo)rta.getObject("consumo_elect");
+								ElectroDev[i].setIdElect(rta.getInt("id_electro")); 
+								ElectroDev[i].setPreciobase(rta.getFloat("precio_elect"));
+								ElectroDev[i].setPeso(rta.getFloat("peso_elect"));
+								ElectroDev[i].setCarga(stmt.executeQuery(SQLCons).getFloat("carga_lava"));
+								rta.next();
+								} catch (SQLException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		return ElectroDev;
+	}
+	public Lavarropas[] GetxPrecios(float pMin, float pMax)
+					{Lavarropas[] ElectroDev = null;
+					int i;
+					String SQLCons= "Select * FROM Electrodomestico WHERE (precio>="+pMin+"AND precio<="+pMax+"AND carga_lava is not null)ORDER BY descripcion";
+					ConexionBD conecta = new ConexionBD();
+					conecta.OpenConection();
+					Statement stmt = null;
+							try {
+								stmt = conecta.Cone.createStatement();
+							} catch (SQLException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							/*try {
+								 ResultSet rta = stmt.executeQuery(SQLCons);
+								} catch (SQLException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							*/
+							try {
+								 ResultSet rta = stmt.executeQuery(SQLCons);
+								for (i=0;i>stmt.getFetchSize();i++)
+									{
+										try {
+											ElectroDev[i].setDescripcion(rta.getNString("descripcion"));
+											ElectroDev[i].setColor(rta.getNString("color_elect"));							
+											ElectroDev[i].consumoEnergetico = (Electrodomestico.consumo)rta.getObject("consumo_elect");
+											ElectroDev[i].setIdElect(rta.getInt("id_electro")); 
+											ElectroDev[i].setPreciobase(rta.getFloat("precoio_elect"));
+											ElectroDev[i].setPeso(rta.getFloat("peso_elect"));
+											ElectroDev[i].setCarga(rta.getFloat("carga_lava"));
+											rta.next();
+											} catch (SQLException e) {
+											// TODO Auto-generated catch block
+											e.printStackTrace();
+										}
+									}
+							} catch (SQLException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+					return ElectroDev;
+					
+						
+					}
+	public Lavarropas[] GetxPrecioYConsumo(float pMin, float pMax, consumo pConsumo)
+		{
+		Lavarropas[] ElectroDev = null;
+		int i;
+		String SQLCons= "Select * FROM Electrodomestico WHERE (precio>="+pMin+"AND precio<="+pMax+"AND consumo_elect="+pConsumo+"AND carga_lava is not null)ORDER BY descripcion";
+		ConexionBD conecta = new ConexionBD();
+		conecta.OpenConection();
+		Statement stmt = null;
+				try {
+					stmt = conecta.Cone.createStatement();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				/*try {
+					 ResultSet rta = stmt.executeQuery(SQLCons);
+					} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				*/
+				try {
+					 ResultSet rta = stmt.executeQuery(SQLCons);
+					for (i=0;i>stmt.getFetchSize();i++)
+						{
+							try {
+								ElectroDev[i].setDescripcion(rta.getNString("descripcion"));
+								ElectroDev[i].setColor(rta.getNString("color_elect"));							
+								ElectroDev[i].consumoEnergetico = (Electrodomestico.consumo)rta.getObject("consumo_elect");
+								ElectroDev[i].setIdElect(rta.getInt("id_electro")); 
+								ElectroDev[i].setPreciobase(rta.getFloat("precoio_elect"));
+								ElectroDev[i].setPeso(rta.getFloat("peso_elect"));
+								ElectroDev[i].setCarga(rta.getFloat("carga_lava"));
+								rta.next();
+								} catch (SQLException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		return ElectroDev;
+		
+		}
 	
 }
