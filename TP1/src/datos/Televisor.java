@@ -4,7 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import datos.Electrodomestico.consumo;
+
 
 public class Televisor extends Electrodomestico {
 
@@ -42,7 +42,7 @@ public class Televisor extends Electrodomestico {
 		this.setPreciobase(pPrecio);
 	}
 	/*Constructor con todos los atributos*/
-	public Televisor(float pPrecio, float pPeso, consumo pConsumo, String pColor, boolean pSintonizador, int pPulgadas)
+	public Televisor(float pPrecio, float pPeso, char pConsumo, String pColor, boolean pSintonizador, int pPulgadas)
 	{
 		super();
 		this.setColor(pColor);
@@ -54,7 +54,7 @@ public class Televisor extends Electrodomestico {
 		
 	}
 
-	public int AddTelev(float pPrecio,float pPeso, String pColor, consumo pConsumo, boolean pSintonizador, int pPulgadas)
+	public int AddTelev(float pPrecio,float pPeso, String pColor, char pConsumo, boolean pSintonizador, int pPulgadas)
 	{
 		String SQLCons= "INSERT INTO Electrodomesticos (color_elect, consumo_elect, peso_elect ,precio_elect, Sintoniz_tele, Resol_tele) VALUES ("+ pColor +","+ pConsumo + "," + pPeso+ "," + pPrecio+","+pSintonizador+","+pPulgadas;
 	ConexionBD conecta = new ConexionBD();
@@ -141,7 +141,7 @@ public class Televisor extends Electrodomestico {
 						{
 							try {
 								ElectroDev[i].setColor(rta.getNString("color_elect")); 
-								ElectroDev[i].setConsumoEnergetico((Electrodomestico.consumo)rta.getObject("consumo_elect"));
+								ElectroDev[i].setConsumoEnergetico((char)rta.getObject("consumo_elect"));
 								ElectroDev[i].setIdElect(rta.getInt("id_electro")); 
 								ElectroDev[i].setPreciobase(rta.getFloat("precio_elect"));
 								ElectroDev[i].setPeso(rta.getFloat("peso_elect"));
@@ -182,7 +182,7 @@ public class Televisor extends Electrodomestico {
 				*/
 				try {   ResultSet rta = stmt.executeQuery(SQLCons);
 						ElectroDev.setColor(rta.getNString("color_elect"));
-						ElectroDev.setConsumoEnergetico((Electrodomestico.consumo)rta.getObject("consumo_elect"));
+						ElectroDev.setConsumoEnergetico((char)rta.getObject("consumo_elect"));
 						ElectroDev.setIdElect(rta.getInt("id_electro"));
 						ElectroDev.setPreciobase(rta.getFloat("precio_elect"));
 						ElectroDev.setPeso(rta.getFloat("peso_elect"));
@@ -195,7 +195,7 @@ public class Televisor extends Electrodomestico {
 		return ElectroDev;		
 	}
 
-	public Televisor[] GetxConsumo (consumo pConsumo)
+	public Televisor[] GetxConsumo (char pConsumo)
 	{
 		Televisor[] ElectroDev = null;
 		int i;
@@ -223,7 +223,7 @@ public class Televisor extends Electrodomestico {
 							try {
 								ElectroDev[i].setDescripcion(rta.getNString("descripcion"));
 								ElectroDev[i].setColor(rta.getNString("color_elect"));							
-								ElectroDev[i].consumoEnergetico = (Electrodomestico.consumo)rta.getObject("consumo_elect");
+								ElectroDev[i].consumoEnergetico = (char)rta.getObject("consumo_elect");
 								ElectroDev[i].setIdElect(rta.getInt("id_electro")); 
 								ElectroDev[i].setPreciobase(rta.getFloat("precio_elect"));
 								ElectroDev[i].setPeso(rta.getFloat("peso_elect"));
@@ -267,7 +267,7 @@ public class Televisor extends Electrodomestico {
 										try {
 											ElectroDev[i].setDescripcion(rta.getNString("descripcion"));
 											ElectroDev[i].setColor(rta.getNString("color_elect"));							
-											ElectroDev[i].consumoEnergetico = (Electrodomestico.consumo)rta.getObject("consumo_elect");
+											ElectroDev[i].consumoEnergetico = (char)rta.getObject("consumo_elect");
 											ElectroDev[i].setIdElect(rta.getInt("id_electro")); 
 											ElectroDev[i].setPreciobase(rta.getFloat("precio_elect"));
 											ElectroDev[i].setPeso(rta.getFloat("peso_elect"));
@@ -287,7 +287,7 @@ public class Televisor extends Electrodomestico {
 					
 						
 					}
-	public Televisor[] GetxPrecioYConsumo(float pMin, float pMax, consumo pConsumo)
+	public Televisor[] GetxPrecioYConsumo(float pMin, float pMax, char pConsumo)
 		{
 		Televisor[] ElectroDev = null;
 		int i;
@@ -315,7 +315,7 @@ public class Televisor extends Electrodomestico {
 							try {
 								ElectroDev[i].setDescripcion(rta.getNString("descripcion"));
 								ElectroDev[i].setColor(rta.getNString("color_elect"));							
-								ElectroDev[i].consumoEnergetico = (Electrodomestico.consumo)rta.getObject("consumo_elect");
+								ElectroDev[i].consumoEnergetico = (char)rta.getObject("consumo_elect");
 								ElectroDev[i].setIdElect(rta.getInt("id_electro")); 
 								ElectroDev[i].setPreciobase(rta.getFloat("precio_elect"));
 								ElectroDev[i].setPeso(rta.getFloat("peso_elect"));

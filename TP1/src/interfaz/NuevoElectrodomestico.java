@@ -17,13 +17,14 @@ import javax.swing.JTextField;
 import java.awt.Component;
 
 import javax.swing.Box;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import javax.swing.JSeparator;
 import javax.swing.JCheckBox;
 import javax.swing.DefaultComboBoxModel;
-import datos.Electrodomestico.consumo;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -43,7 +44,7 @@ public class NuevoElectrodomestico extends JFrame {
 	private JTextField txtColorLava;
 	private JTextField txtPesoLava;
 	private JTextField txtPrecioBLava;
-	private JTextField textField;
+	private JTextField txtCargaLava;
 	private JTextField txtResol;
 	private JTextField txtPesoTele;
 	private JTextField txtPesoElect;
@@ -141,7 +142,7 @@ public class NuevoElectrodomestico extends JFrame {
 		panel.add(txtPrecioBElect);
 		
 		JComboBox<Object> cbxConsumoElec = new JComboBox<Object>();
-		cbxConsumoElec.setModel(new DefaultComboBoxModel(consumo.values()));
+		cbxConsumoElec.setModel(new DefaultComboBoxModel(new String[] {"A", "B", "C", "D", "E", "F"}));
 		cbxConsumoElec.setBounds(135, 151, 50, 20);
 		panel.add(cbxConsumoElec);
 		
@@ -180,107 +181,107 @@ public class NuevoElectrodomestico extends JFrame {
 		label_17.setBounds(481, 112, 27, 14);
 		panel.add(label_17);
 		
-		JPanel panel_2 = new JPanel();
-		tabbedPane.addTab("Televisor", null, panel_2, null);
-		panel_2.setLayout(null);
+		JPanel Televisor = new JPanel();
+		tabbedPane.addTab("Televisor", null, Televisor, null);
+		Televisor.setLayout(null);
 		
 		JLabel lblId = new JLabel("ID");
 		lblId.setBounds(10, 11, 11, 14);
-		panel_2.add(lblId);
+		Televisor.add(lblId);
 		
 		txtIdTele = new JTextField();
 		txtIdTele.setEnabled(false);
 		txtIdTele.setBounds(31, 8, 86, 20);
-		panel_2.add(txtIdTele);
+		Televisor.add(txtIdTele);
 		txtIdTele.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("Descripcion");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNewLabel.setBounds(10, 68, 95, 14);
-		panel_2.add(lblNewLabel);
+		Televisor.add(lblNewLabel);
 		
 		txtDescripTele = new JTextField();
 		txtDescripTele.setBounds(115, 65, 383, 20);
-		panel_2.add(txtDescripTele);
+		Televisor.add(txtDescripTele);
 		txtDescripTele.setColumns(10);
 		
 		txtColorTele = new JTextField();
 		txtColorTele.setBounds(115, 109, 143, 20);
-		panel_2.add(txtColorTele);
+		Televisor.add(txtColorTele);
 		txtColorTele.setColumns(10);
 		
 		JLabel lblColor = new JLabel("Color");
 		lblColor.setHorizontalAlignment(SwingConstants.LEFT);
 		lblColor.setBounds(10, 112, 58, 14);
-		panel_2.add(lblColor);
+		Televisor.add(lblColor);
 		
 		JLabel lblNewLabel_1 = new JLabel("Peso");
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNewLabel_1.setBounds(285, 112, 60, 14);
-		panel_2.add(lblNewLabel_1);
+		Televisor.add(lblNewLabel_1);
 		
 		JLabel lblPrecio = new JLabel("Precio Base");
 		lblPrecio.setHorizontalAlignment(SwingConstants.LEFT);
 		lblPrecio.setBounds(285, 148, 72, 27);
-		panel_2.add(lblPrecio);
+		Televisor.add(lblPrecio);
 		
 		txtPrecioBTele = new JTextField();
 		txtPrecioBTele.setBounds(355, 151, 143, 20);
-		panel_2.add(txtPrecioBTele);
+		Televisor.add(txtPrecioBTele);
 		txtPrecioBTele.setColumns(10);
 		
 		JComboBox cbxConsumoTele = new JComboBox();
-		cbxConsumoTele.setModel(new DefaultComboBoxModel(consumo.values()));
+		cbxConsumoTele.setModel(new DefaultComboBoxModel(new String[] {"A", "B", "C", "D", "E", "F"}));
 		cbxConsumoTele.setBounds(135, 151, 50, 20);
-		panel_2.add(cbxConsumoTele);
+		Televisor.add(cbxConsumoTele);
 		
 		JLabel lblConsumoEnergetico = new JLabel("Consumo Energetico");
 		lblConsumoEnergetico.setHorizontalAlignment(SwingConstants.LEFT);
 		lblConsumoEnergetico.setBounds(10, 154, 131, 14);
-		panel_2.add(lblConsumoEnergetico);
+		Televisor.add(lblConsumoEnergetico);
 		
 		JSeparator separator_1 = new JSeparator();
 		separator_1.setBounds(10, 55, 488, 2);
-		panel_2.add(separator_1);
+		Televisor.add(separator_1);
 		
 		JLabel label_4 = new JLabel("Precio Final");
 		label_4.setFont(new Font("Tahoma", Font.ITALIC, 15));
 		label_4.setBounds(319, 198, 86, 14);
-		panel_2.add(label_4);
+		Televisor.add(label_4);
 		
 		JLabel label_13 = new JLabel("$  ");
 		label_13.setHorizontalAlignment(SwingConstants.RIGHT);
 		label_13.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
 		label_13.setBounds(370, 198, 58, 14);
-		panel_2.add(label_13);
+		Televisor.add(label_13);
 		
 		JLabel lblPrecioFinalTele = new JLabel("000");
 		lblPrecioFinalTele.setHorizontalAlignment(SwingConstants.LEFT);
 		lblPrecioFinalTele.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
 		lblPrecioFinalTele.setBounds(426, 198, 72, 14);
-		panel_2.add(lblPrecioFinalTele);
+		Televisor.add(lblPrecioFinalTele);
 		
 		JLabel lblResolucin = new JLabel("Resoluci\u00F3n");
 		lblResolucin.setBounds(10, 195, 86, 14);
-		panel_2.add(lblResolucin);
+		Televisor.add(lblResolucin);
 		
 		txtResol = new JTextField();
 		txtResol.setBounds(115, 189, 45, 20);
-		panel_2.add(txtResol);
+		Televisor.add(txtResol);
 		txtResol.setColumns(10);
 		
 		txtPesoTele = new JTextField();
 		txtPesoTele.setColumns(10);
 		txtPesoTele.setBounds(355, 109, 116, 20);
-		panel_2.add(txtPesoTele);
+		Televisor.add(txtPesoTele);
 		
 		JLabel label_16 = new JLabel("Kg.");
 		label_16.setBounds(481, 112, 27, 14);
-		panel_2.add(label_16);
+		Televisor.add(label_16);
 		
 		JCheckBox chckbxSintonizadorTdt = new JCheckBox("Sintonizador TDT");
 		chckbxSintonizadorTdt.setBounds(184, 182, 136, 32);
-		panel_2.add(chckbxSintonizadorTdt);
+		Televisor.add(chckbxSintonizadorTdt);
 		
 		JPanel Lavarropa = new JPanel();
 		tabbedPane.addTab("Lavarropa", null, Lavarropa, null);
@@ -342,7 +343,7 @@ public class NuevoElectrodomestico extends JFrame {
 		panel_1.add(txtPrecioBLava);
 		
 		JComboBox cbxConsumoLava = new JComboBox();
-		cbxConsumoLava.setModel(new DefaultComboBoxModel(consumo.values()));
+		cbxConsumoLava.setModel(new DefaultComboBoxModel(new String[] {"A", "B", "C", "D", "E", "F"}));
 		cbxConsumoLava.setBounds(135, 151, 50, 20);
 		panel_1.add(cbxConsumoLava);
 		
@@ -376,10 +377,10 @@ public class NuevoElectrodomestico extends JFrame {
 		lblCargaMxima.setBounds(10, 198, 107, 14);
 		panel_1.add(lblCargaMxima);
 		
-		textField = new JTextField();
-		textField.setBounds(115, 195, 40, 20);
-		panel_1.add(textField);
-		textField.setColumns(10);
+		txtCargaLava = new JTextField();
+		txtCargaLava.setBounds(115, 195, 40, 20);
+		panel_1.add(txtCargaLava);
+		txtCargaLava.setColumns(10);
 		
 		JLabel lblKg = new JLabel("Kg.");
 		lblKg.setBounds(165, 198, 46, 14);
@@ -396,7 +397,25 @@ public class NuevoElectrodomestico extends JFrame {
 		JButton btnGuardar = new JButton("Guardar");
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-						
+			Controlador cont = new Controlador();
+			String tipoElec = "";
+			switch(tabbedPane.getSelectedIndex())
+			{
+			case 0: cont.NuevoElectro(Float.parseFloat(txtPrecioBElect.getText()), Float.parseFloat(txtPesoElect.getText()), txtColorElec.getText().toString(),cbxConsumoElec.getSelectedItem().toString().charAt(0), txtDescripElec.getText().toString()); 
+					tipoElec ="Electrodomestico";
+					break;
+			case 1: cont.NuevoTele(Float.parseFloat(txtPrecioBElect.getText()), Float.parseFloat(txtPesoElect.getText()), txtColorElec.getText().toString(),cbxConsumoElec.getSelectedItem().toString().charAt(0), txtDescripElec.getText().toString(), Integer.parseInt(txtResol.getText().toString()),(chckbxSintonizadorTdt.isSelected())); 
+					tipoElec = "Televisor";
+					break;
+			
+			case 2: cont.NuevoLavarr(Float.parseFloat(txtPrecioBElect.getText()), Float.parseFloat(txtPesoElect.getText()), txtColorElec.getText().toString(),cbxConsumoElec.getSelectedItem().toString().charAt(0), txtDescripElec.getText().toString(),Integer.parseInt(txtCargaLava.getText().toString())); 
+				tipoElec="Lavarropas";
+				break;
+			default: break;
+			}
+			JOptionPane.showMessageDialog(null, "Se añadió un nuevo "+tipoElec+" al registro.");
+			dispose();
+			
 			}
 		});
 		btnGuardar.setBounds(335, 311, 89, 23);

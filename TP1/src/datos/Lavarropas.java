@@ -4,7 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import datos.Electrodomestico.consumo;
+
 
 public class Lavarropas extends Electrodomestico
 {
@@ -37,7 +37,7 @@ public class Lavarropas extends Electrodomestico
 	}
 	
 	//Constructor 3
-	public Lavarropas(String pDescripcion, float pPrecio, float pPeso, consumo pConsumo, String pColor, float pCarga)
+	public Lavarropas(float pPrecio, float pPeso, char pConsumo, String pColor,  float pCarga, String pDescripcion)
 	{
 		this();
 		this.setDescripcion(pDescripcion);
@@ -49,7 +49,7 @@ public class Lavarropas extends Electrodomestico
 				
 	}
 
-	public int AddLavarrop(String pDescripcion, float pPrecio,float pPeso, String pColor, consumo pConsumo, float pCarga)
+	public int AddLavarrop(float pPrecio,float pPeso, String pColor, char pConsumo, float pCarga,String pDescripcion)
 	{
 		String SQLCons= "INSERT INTO Electrodomesticos (descripcion, color_elect, consumo_elect, peso_elect ,precio_elect, carga_lava) VALUES ("+pDescripcion+","+ pColor +","+ pConsumo + "," + pPeso+ "," + pPrecio+","+pCarga;
 	ConexionBD conecta = new ConexionBD();
@@ -137,7 +137,7 @@ public class Lavarropas extends Electrodomestico
 							try {
 								ElectroDev[i].setDescripcion(rta.getNString("descripcion"));
 								ElectroDev[i].setColor(rta.getNString("color_elect")); 
-								ElectroDev[i].setConsumoEnergetico((Electrodomestico.consumo)rta.getObject("consumo_elect"));
+								ElectroDev[i].setConsumoEnergetico((char)rta.getObject("consumo_elect"));
 								ElectroDev[i].setIdElect(rta.getInt("id_electro")); 
 								ElectroDev[i].setPreciobase(rta.getFloat("precio_elect"));
 								ElectroDev[i].setPeso(rta.getFloat("peso_elect"));
@@ -179,7 +179,7 @@ public class Lavarropas extends Electrodomestico
 						ResultSet rta = stmt.executeQuery(SQLCons);
 						ElectroDev.setDescripcion(rta.getNString("descripcion"));
 						ElectroDev.setColor(rta.getNString("color_elect"));
-						ElectroDev.setConsumoEnergetico((Electrodomestico.consumo)rta.getObject("consumo_elect"));
+						ElectroDev.setConsumoEnergetico((char)rta.getObject("consumo_elect"));
 						ElectroDev.setIdElect(rta.getInt("id_electro"));
 						ElectroDev.setPreciobase(rta.getFloat("precio_elect"));
 						ElectroDev.setPeso(rta.getFloat("peso_elect"));
@@ -192,7 +192,7 @@ public class Lavarropas extends Electrodomestico
 		return ElectroDev;		
 	}
 
-	public Lavarropas[] GetxConsumo (consumo pConsumo)
+	public Lavarropas[] GetxConsumo (char pConsumo)
 	{
 		Lavarropas[] ElectroDev = null;
 		int i;
@@ -221,7 +221,7 @@ public class Lavarropas extends Electrodomestico
 							try {
 								ElectroDev[i].setDescripcion(rta.getNString("descripcion"));
 								ElectroDev[i].setColor(rta.getNString("color_elect"));							
-								ElectroDev[i].consumoEnergetico = (Electrodomestico.consumo)rta.getObject("consumo_elect");
+								ElectroDev[i].consumoEnergetico = (char)rta.getObject("consumo_elect");
 								ElectroDev[i].setIdElect(rta.getInt("id_electro")); 
 								ElectroDev[i].setPreciobase(rta.getFloat("precio_elect"));
 								ElectroDev[i].setPeso(rta.getFloat("peso_elect"));
@@ -265,7 +265,7 @@ public class Lavarropas extends Electrodomestico
 										try {
 											ElectroDev[i].setDescripcion(rta.getNString("descripcion"));
 											ElectroDev[i].setColor(rta.getNString("color_elect"));							
-											ElectroDev[i].consumoEnergetico = (Electrodomestico.consumo)rta.getObject("consumo_elect");
+											ElectroDev[i].consumoEnergetico = (char)rta.getObject("consumo_elect");
 											ElectroDev[i].setIdElect(rta.getInt("id_electro")); 
 											ElectroDev[i].setPreciobase(rta.getFloat("precoio_elect"));
 											ElectroDev[i].setPeso(rta.getFloat("peso_elect"));
@@ -284,7 +284,7 @@ public class Lavarropas extends Electrodomestico
 					
 						
 					}
-	public Lavarropas[] GetxPrecioYConsumo(float pMin, float pMax, consumo pConsumo)
+	public Lavarropas[] GetxPrecioYConsumo(float pMin, float pMax, char pConsumo)
 		{
 		Lavarropas[] ElectroDev = null;
 		int i;
@@ -312,7 +312,7 @@ public class Lavarropas extends Electrodomestico
 							try {
 								ElectroDev[i].setDescripcion(rta.getNString("descripcion"));
 								ElectroDev[i].setColor(rta.getNString("color_elect"));							
-								ElectroDev[i].consumoEnergetico = (Electrodomestico.consumo)rta.getObject("consumo_elect");
+								ElectroDev[i].consumoEnergetico = (char)rta.getObject("consumo_elect");
 								ElectroDev[i].setIdElect(rta.getInt("id_electro")); 
 								ElectroDev[i].setPreciobase(rta.getFloat("precoio_elect"));
 								ElectroDev[i].setPeso(rta.getFloat("peso_elect"));

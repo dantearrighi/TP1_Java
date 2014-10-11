@@ -3,6 +3,7 @@
 	<name>TP1</name>
 	<comment></comment>
 	<projects>
+		<project>ConectionJava</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
@@ -14,4 +15,10 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<variableList>
+		<variable>
+			<name>ConectorJava</name>
+			<value>file:/C:/Users/Martin/Downloads/mysql-connector-java-5.0.8/mysql-connector-java-5.0.8-bin.jar</value>
+		</variable>
+	</variableList>
 </projectDescription>

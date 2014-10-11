@@ -1,6 +1,7 @@
 package interfaz;
 
-import datos.Electrodomestico.consumo;
+import negocio.ElectrodomesticoNegocio;
+
 
 public class Controlador {
 
@@ -11,13 +12,14 @@ public class Controlador {
 	}
 	
 	/*Deberia devolver un int para el ID*/
-	public void NuevoElectro(float pPrecio,float pPeso, String pColor, datos.Electrodomestico.consumo pConsumo, String pDescripcion)
+	public void NuevoElectro(float pPrecio,float pPeso, String pColor, char pConsumo, String pDescripcion)
 	{
-		
+			ElectrodomesticoNegocio ElectroNew = new ElectrodomesticoNegocio();
+		ElectroNew.AddElectro(pPrecio, pPeso, pColor, pConsumo, pDescripcion);
 		
 	}
 	/*Deberia devolver un int para el ID*/
-	public void NuevoLavarr(float pPrecio,float pPeso, String pColor, consumo pConsumo, String pDescripcion, float pCarga)
+	public void NuevoLavarr(float pPrecio,float pPeso, String pColor, char pConsumo, String pDescripcion, float pCarga)
 	{
 		
 	}

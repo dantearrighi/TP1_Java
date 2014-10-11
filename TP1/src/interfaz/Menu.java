@@ -55,7 +55,7 @@ public class Menu extends JFrame {
 		btnNewElec.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				NuevoElectrodomestico frmNuevoElec = new NuevoElectrodomestico();
-				frmNuevoElec.show();
+			
 				frmNuevoElec.setVisible(true);
 				
 			}

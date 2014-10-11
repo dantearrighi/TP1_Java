@@ -1,7 +1,7 @@
 package negocio;
 
 import datos.Electrodomestico;
-import datos.Electrodomestico.consumo;
+
 
 
 public class ElectrodomesticoNegocio {
@@ -10,19 +10,18 @@ public class ElectrodomesticoNegocio {
 	
 	protected float precioFinal;
 	
-	protected datos.Electrodomestico.consumo comprobarConsumoEnergetico(char pLetra)
+	protected char comprobarConsumoEnergetico(char pConsumo)
 	{
-	datos.Electrodomestico.consumo cLetra = consumo.F;
-	switch(pLetra)
+	char cLetra;
+	switch(pConsumo)
 	{
-	case 'A': cLetra=consumo.A; break;
-	case 'B': cLetra=consumo.B; break;
-	case 'C': cLetra=consumo.C; break;
-	case 'D': cLetra=consumo.D; break;
-	case 'E': cLetra=consumo.E; break;
-	case 'F': cLetra=consumo.F; break;
-	default:  cLetra=consumo.F; break;
-				 
+	case 'A': cLetra='A'; break;
+	case 'B': cLetra='B'; break;
+	case 'C': cLetra='C'; break;
+	case 'D': cLetra='D'; break;
+	case 'E': cLetra='E'; break;
+	case 'F': cLetra='F'; break;
+	default:  cLetra='F'; break;
 	}
 		return cLetra;
 	}
@@ -62,19 +61,19 @@ public class ElectrodomesticoNegocio {
 		switch(pConsumo)
 		{
 		
-		case 'A': precioFinal= 100; 
+		case 'A': precioFinal+= 100; 
 				break;
-		case 'B': precioFinal= 80;
+		case 'B': precioFinal+= 80;
 				break;
-		case 'C': precioFinal= 60;
+		case 'C': precioFinal+= 60;
 				break;
-		case 'D': precioFinal= 50;
+		case 'D': precioFinal+= 50;
 				break;
-		case 'E': precioFinal= 30;
+		case 'E': precioFinal+= 30;
 				break;
-		case 'F': precioFinal= 10;
+		case 'F': precioFinal+= 10;
 				break;
-			default: precioFinal= 10;
+			default: precioFinal+= 10;
 					 break;
 			
 		}
@@ -108,14 +107,30 @@ public class ElectrodomesticoNegocio {
 		ElectrodomesticoNegocio Electro = new ElectrodomesticoNegocio();
 
 		 String pColorOK = Electro.comprobarColor(pColor);
-		 consumo pConsumoOK = Electro.comprobarConsumoEnergetico((char)pConsumo);
 		 float pPrecioOK = Electro.precioFinal(pConsumo, pPeso, pPrecio);
 		 
+		 if(pPrecio==0 && pPeso==0 && pConsumo ==' '  && pColor=="")
+		 {
+				 
 		 datos.Electrodomestico ElectroDat = new Electrodomestico();
-		 int iDElectro = ElectroDat.AddElectro(pPrecioOK, pPeso, pColorOK, pConsumoOK, pDescripcion);
+		 int iDElectro = ElectroDat.AddElectro(pPrecioOK, pPeso, pColorOK, pConsumo, pDescripcion);
 		 
 		 return iDElectro;
-		
+		 }else if(pPrecio!=0 && pPeso!=0 && pConsumo ==' '  && pColor=="")
+		 {
+			 datos.Electrodomestico ElectroDat = new Electrodomestico(pPrecio,pPeso);
+			 int iDElectro = ElectroDat.AddElectro(pPrecioOK, pPeso, pColorOK, pConsumo, pDescripcion);
+			 
+			 return iDElectro;}
+		 else
+		 {
+			 datos.Electrodomestico ElectroDat = new Electrodomestico(pPrecio,pPeso, pColor, pConsumo, pDescripcion);
+			 int iDElectro = ElectroDat.AddElectro(pPrecioOK, pPeso, pColorOK, pConsumo, pDescripcion);
+			 
+			 return iDElectro;
+		 }
+	 
+	 
 	}
 
 	public void DeleteElectro(int idElectro)
@@ -129,14 +144,13 @@ public class ElectrodomesticoNegocio {
 	public Electrodomestico UpdateElectro(int pIdElect, float pPrecio, float pPeso, String pColor, char pConsumo, String pDescripcion)
 	{
 		String pColorOk = this.comprobarColor(pColor);
-		consumo pConsumoOk = this.comprobarConsumoEnergetico(pConsumo);
 		float pPrecioOk = this.precioFinal(pConsumo, pPeso, pPrecio);
-		Electrodomestico ElectroDat = new Electrodomestico(pPrecioOk, pPeso, pColorOk, pConsumoOk, pDescripcion);
+		Electrodomestico ElectroDat = new Electrodomestico(pPrecioOk, pPeso, pColorOk, pConsumo, pDescripcion);
 		ElectroDat.setIdElect(pIdElect);
 		return ElectroDat;
 	}
 
-	public Electrodomestico[] GetxConsumo(consumo cConsumo)
+	public Electrodomestico[] GetxConsumo(char cConsumo)
 		{
 	
 		Electrodomestico ElectroDat = new Electrodomestico();
@@ -157,7 +171,7 @@ public class ElectrodomesticoNegocio {
 	return AllElectroDat;
 	
 	}
-	public Electrodomestico[] GetxConsumoyPrec(float pMin, float pMax, consumo cConsumo)
+	public Electrodomestico[] GetxConsumoyPrec(float pMin, float pMax, char cConsumo)
 	{
 
 	Electrodomestico ElectroDat = new Electrodomestico();

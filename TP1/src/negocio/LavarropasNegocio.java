@@ -1,7 +1,6 @@
 package negocio;
 
 import datos.Electrodomestico;
-import datos.Electrodomestico.consumo;
 import datos.Lavarropas;
 
 public class LavarropasNegocio extends ElectrodomesticoNegocio
@@ -26,13 +25,30 @@ public class LavarropasNegocio extends ElectrodomesticoNegocio
 				LavarropasNegocio Lavarr = new LavarropasNegocio();
 
 				 String pColorOK = Lavarr.comprobarColor(pColor);
-				 consumo pConsumoOK = Lavarr.comprobarConsumoEnergetico((char)pConsumo);
+				 char pConsumoOK = Lavarr.comprobarConsumoEnergetico((char)pConsumo);
 				 float pPrecioOK = Lavarr.precioFinal(pConsumo, pPeso, pPrecio);
 				 
-				 datos.Lavarropas ElectroDat = new datos.Lavarropas();
-				 int iDElectro = ElectroDat.AddLavarrop(pDescripcion, pPrecioOK, pPeso, pColorOK, pConsumoOK, pCarga);
+								 
+				 if(pPrecio==0 && pPeso==0 && pConsumo ==' '  && pColor=="")
+				 {
+						 
+				 datos.Lavarropas ElectroDat = new Lavarropas();
+				 int iDElectro = ElectroDat.AddElectro(pPrecioOK, pPeso, pColorOK, pConsumo, pDescripcion);
 				 
 				 return iDElectro;
+				 }else if(pPrecio!=0 && pPeso!=0 && pConsumo ==' '  && pColor=="")
+				 {
+					 datos.Lavarropas ElectroDat = new Lavarropas(pPrecioOK,pPeso);
+					 int iDElectro = ElectroDat.AddElectro(pPrecioOK, pPeso, pColorOK, pConsumoOK, pDescripcion);
+					 
+					 return iDElectro;}
+				 else
+				 {
+					 datos.Lavarropas ElectroDat = new Lavarropas(pPrecioOK, pPeso, pConsumoOK, pColorOK, pCarga, pDescripcion);
+					 int iDElectro = ElectroDat.AddElectro(pPrecioOK, pPeso, pColorOK, pConsumoOK, pDescripcion);
+					 
+					 return iDElectro;
+				 }
 				
 			}
 	
@@ -47,14 +63,14 @@ public class LavarropasNegocio extends ElectrodomesticoNegocio
 			public datos.Lavarropas UpdateElectro(int pIdLava, float pPrecio, float pPeso, String pColor, char pConsumo,float pCarga, String pDescripcion)
 			{
 				String pColorOk = this.comprobarColor(pColor);
-				consumo pConsumoOk = this.comprobarConsumoEnergetico(pConsumo);
+				char pConsumoOk = this.comprobarConsumoEnergetico(pConsumo);
 				float pPrecioOk = this.precioFinal(pConsumo, pPeso, pPrecio);
-				datos.Lavarropas ElectroDat = new datos.Lavarropas(pDescripcion, pPrecioOk, pPeso, pConsumoOk, pColorOk, pCarga);
+				datos.Lavarropas ElectroDat = new datos.Lavarropas(pPrecioOk, pPeso, pConsumoOk, pColorOk, pCarga,pDescripcion);
 				ElectroDat.setIdElect(pIdLava);
 				return ElectroDat;
 			}
 
-			public datos.Lavarropas[] GetxConsumo(consumo cConsumo)
+			public datos.Lavarropas[] GetxConsumo(char cConsumo)
 			{
 		
 			datos.Lavarropas ElectroDat = new Lavarropas();
@@ -76,7 +92,7 @@ public class LavarropasNegocio extends ElectrodomesticoNegocio
 		
 		}
 			
-			public Lavarropas[] GetxConsumoyPrec(float pMin, float pMax, consumo cConsumo)
+			public Lavarropas[] GetxConsumoyPrec(float pMin, float pMax, char cConsumo)
 		{
 
 		Lavarropas ElectroDat = new Lavarropas();

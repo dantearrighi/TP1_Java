@@ -2,7 +2,7 @@ package negocio;
 
 import datos.Electrodomestico;
 import datos.Lavarropas;
-import datos.Electrodomestico.consumo;
+
 import datos.Televisor;
 
 public class TelevisorNegocio extends ElectrodomesticoNegocio{
@@ -29,7 +29,7 @@ public class TelevisorNegocio extends ElectrodomesticoNegocio{
 		TelevisorNegocio TeleNeg = new TelevisorNegocio();
 
 		 String pColorOK = TeleNeg.comprobarColor(pColor);
-		 consumo pConsumoOK = TeleNeg.comprobarConsumoEnergetico((char)pConsumo);
+		 char pConsumoOK = TeleNeg.comprobarConsumoEnergetico((char)pConsumo);
 		 float pPrecioOK = TeleNeg.precioFinal(pConsumo, pPeso, pPrecio);
 		 
 		 datos.Televisor ElectroDat = new datos.Televisor();
@@ -50,14 +50,14 @@ public class TelevisorNegocio extends ElectrodomesticoNegocio{
 	public Televisor UpdateElectro(int idTv, float pPrecio, float pPeso, String pColor, char pConsumo, int pResolucion, boolean pSintoniz, String pDescripcion)
 	{
 		String pColorOk = this.comprobarColor(pColor);
-		consumo pConsumoOk = this.comprobarConsumoEnergetico(pConsumo);
+		char pConsumoOk = this.comprobarConsumoEnergetico(pConsumo);
 		float pPrecioOk = this.precioFinal(pConsumo, pPeso, pPrecio);
 		Televisor ElectroDat = new Televisor(pPrecioOk, pPeso, pConsumoOk, pColorOk, pSintoniz, pResolucion);
 		ElectroDat.setIdElect(idTv);
 		return ElectroDat;
 	}
 	
-	public datos.Televisor[] GetxConsumo(consumo cConsumo)
+	public datos.Televisor[] GetxConsumo(char cConsumo)
 	{
 
 	datos.Televisor ElectroDat = new Televisor();
@@ -79,7 +79,7 @@ public class TelevisorNegocio extends ElectrodomesticoNegocio{
 
 }
 	
-	public Televisor[] GetxConsumoyPrec(float pMin, float pMax, consumo cConsumo)
+	public Televisor[] GetxConsumoyPrec(float pMin, float pMax, char cConsumo)
 {
 
 	Televisor ElectroDat = new Televisor();
