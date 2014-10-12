@@ -96,7 +96,6 @@ public int AddElectro(float pPrecio,float pPeso, String pColor, char pConsumo, S
 	String SQLCons= "INSERT INTO Electrodomestico (descripcion, color_elect, consumo_elect, peso_elect ,precio_elect)"+ " VALUES (?, ?, ?,?,?)" ;/* +pDescripcion+","+ pColor +","+ pConsumo + "," + pPeso+ "," + pPrecio; */
 ConexionBD conecta = new ConexionBD();
 conecta.OpenConection();
-/*Statement stmt = null;*/
 PreparedStatement stmt = conecta.Cone.prepareStatement(SQLCons);
 stmt.setString(1,pDescripcion);
 stmt.setString(2, pColor);
@@ -106,18 +105,12 @@ stmt.setObject(3, pConsumo,java.sql.Types.CHAR);
 
 
 
-	stmt.execute(); /* = conecta.Cone.createStatement(); */
+	stmt.execute(); 
 	conecta.CloseConnection();
 } catch (SQLException e) {
 	// TODO Auto-generated catch block
 	e.printStackTrace();
-}/*
-try {
-	ResultSet rta = stmt.executeQuery(SQLCons);
-} catch (SQLException e) {
-	// TODO Auto-generated catch block
-	e.printStackTrace();
-} */
+}
 return Statement.RETURN_GENERATED_KEYS;
 }
 public void DeleteElectro(int pIdElec)

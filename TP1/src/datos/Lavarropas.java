@@ -1,5 +1,6 @@
 package datos;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -51,18 +52,21 @@ public class Lavarropas extends Electrodomestico
 
 	public int AddLavarrop(float pPrecio,float pPeso, String pColor, char pConsumo, float pCarga,String pDescripcion)
 	{
-		String SQLCons= "INSERT INTO Electrodomesticos (descripcion, color_elect, consumo_elect, peso_elect ,precio_elect, carga_lava) VALUES ("+pDescripcion+","+ pColor +","+ pConsumo + "," + pPeso+ "," + pPrecio+","+pCarga;
-	ConexionBD conecta = new ConexionBD();
-	conecta.OpenConection();
-	Statement stmt = null;
-	try {
-		stmt = conecta.Cone.createStatement();
-	} catch (SQLException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
-	try {
-		ResultSet rta = stmt.executeQuery(SQLCons);
+		try{
+			
+		String SQLCons= "INSERT INTO Electrodomestico (descripcion, color_elect, consumo_elect, peso_elect ,precio_elect, carga_lava) VALUES (?,?,?,?,?,?)";
+		ConexionBD conecta = new ConexionBD();
+		conecta.OpenConection();
+		PreparedStatement stmt = conecta.Cone.prepareStatement(SQLCons);
+		stmt.setString(1,pDescripcion);
+		stmt.setString(2, pColor);
+		stmt.setFloat(5, pPrecio);
+		stmt.setFloat(4, pPeso);
+		stmt.setObject(3, pConsumo,java.sql.Types.CHAR);
+		stmt.setFloat(6, pCarga);
+
+			stmt.execute(); 
+			conecta.CloseConnection();
 	} catch (SQLException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();

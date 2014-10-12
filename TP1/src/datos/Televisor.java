@@ -1,5 +1,6 @@
 package datos;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -54,20 +55,26 @@ public class Televisor extends Electrodomestico {
 		
 	}
 
-	public int AddTelev(float pPrecio,float pPeso, String pColor, char pConsumo, boolean pSintonizador, int pPulgadas)
+	public int AddTelev(float pPrecio,float pPeso, String pColor, char pConsumo, boolean pSintonizador, int pPulgadas, String pDescripcion)
 	{
-		String SQLCons= "INSERT INTO Electrodomesticos (color_elect, consumo_elect, peso_elect ,precio_elect, Sintoniz_tele, Resol_tele) VALUES ("+ pColor +","+ pConsumo + "," + pPeso+ "," + pPrecio+","+pSintonizador+","+pPulgadas;
-	ConexionBD conecta = new ConexionBD();
-	conecta.OpenConection();
-	Statement stmt = null;
-	try {
-		stmt = conecta.Cone.createStatement();
-	} catch (SQLException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
-	try {
-		ResultSet rta = stmt.executeQuery(SQLCons);
+		try{
+			
+		String SQLCons= "INSERT INTO Electrodomestico (descripcion, color_elect, consumo_elect, peso_elect ,precio_elect, Sintoniz_tele, Resol_tele) VALUES (?,?,?,?,?,?,?)";
+		ConexionBD conecta = new ConexionBD();
+		conecta.OpenConection();
+		PreparedStatement stmt = conecta.Cone.prepareStatement(SQLCons);
+		stmt.setString(1,pDescripcion);
+		stmt.setString(2, pColor);
+		stmt.setFloat(5, pPrecio);
+		stmt.setFloat(4, pPeso);
+		stmt.setObject(3, pConsumo,java.sql.Types.CHAR);
+		stmt.setInt(6,pPulgadas);
+		stmt.setBoolean(7, pSintonizador);
+
+
+
+			stmt.execute(); 
+			conecta.CloseConnection();
 	} catch (SQLException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();

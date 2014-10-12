@@ -1,6 +1,7 @@
 package interfaz;
 
 import negocio.ElectrodomesticoNegocio;
+import negocio.LavarropasNegocio;
 
 
 public class Controlador {
@@ -21,7 +22,8 @@ public class Controlador {
 	/*Deberia devolver un int para el ID*/
 	public void NuevoLavarr(float pPrecio,float pPeso, String pColor, char pConsumo, String pDescripcion, float pCarga)
 	{
-		
+		LavarropasNegocio LavarNew = new LavarropasNegocio();
+		LavarNew.AddLavarropa(pPrecio, pPeso, pColor, pConsumo, pDescripcion, pCarga);
 	}
 	/*Deberia devolver un int para el ID*/
 	public void NuevoTele(float pPrecio,float pPeso, String pColor, char pConsumo, String pDescripcion, int pResolucion, boolean pSintoniz)

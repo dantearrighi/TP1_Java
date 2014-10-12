@@ -408,7 +408,7 @@ public class NuevoElectrodomestico extends JFrame {
 					tipoElec = "Televisor";
 					break;
 			
-			case 2: cont.NuevoLavarr(Float.parseFloat(txtPrecioBElect.getText()), Float.parseFloat(txtPesoElect.getText()), txtColorElec.getText().toString(),cbxConsumoElec.getSelectedItem().toString().charAt(0), txtDescripElec.getText().toString(),Integer.parseInt(txtCargaLava.getText().toString())); 
+			case 2: cont.NuevoLavarr(Float.parseFloat(txtPrecioBElect.getText()), Float.parseFloat(txtPesoElect.getText()), txtColorElec.getText().toString(),cbxConsumoElec.getSelectedItem().toString().charAt(0), txtDescripElec.getText().toString(),Float.parseFloat(txtCargaLava.getText())); 
 				tipoElec="Lavarropas";
 				break;
 			default: break;

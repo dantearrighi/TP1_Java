@@ -33,7 +33,7 @@ public class TelevisorNegocio extends ElectrodomesticoNegocio{
 		 float pPrecioOK = TeleNeg.precioFinal(pConsumo, pPeso, pPrecio);
 		 
 		 datos.Televisor ElectroDat = new datos.Televisor();
-		 int iDElectro = ElectroDat.AddTelev(pPrecioOK, pPeso, pColorOK, pConsumoOK, pSintoniz, pResolucion);
+		 int iDElectro = ElectroDat.AddTelev(pPrecioOK, pPeso, pColorOK, pConsumoOK, pSintoniz, pResolucion, pDescripcion);
 		 
 		 return iDElectro;
 		
