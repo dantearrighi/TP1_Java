@@ -404,11 +404,11 @@ public class NuevoElectrodomestico extends JFrame {
 			case 0: cont.NuevoElectro(Float.parseFloat(txtPrecioBElect.getText()), Float.parseFloat(txtPesoElect.getText()), txtColorElec.getText().toString(),cbxConsumoElec.getSelectedItem().toString().charAt(0), txtDescripElec.getText().toString()); 
 					tipoElec ="Electrodomestico";
 					break;
-			case 1: cont.NuevoTele(Float.parseFloat(txtPrecioBElect.getText()), Float.parseFloat(txtPesoElect.getText()), txtColorElec.getText().toString(),cbxConsumoElec.getSelectedItem().toString().charAt(0), txtDescripElec.getText().toString(), Integer.parseInt(txtResol.getText().toString()),(chckbxSintonizadorTdt.isSelected())); 
+			case 1: cont.NuevoTele(Float.parseFloat(txtPrecioBTele.getText()), Float.parseFloat(txtPesoTele.getText()), txtColorTele.getText().toString(),cbxConsumoTele.getSelectedItem().toString().charAt(0), txtDescripTele.getText().toString(), Integer.parseInt(txtResol.getText().toString()),(chckbxSintonizadorTdt.isSelected())); 
 					tipoElec = "Televisor";
 					break;
 			
-			case 2: cont.NuevoLavarr(Float.parseFloat(txtPrecioBElect.getText()), Float.parseFloat(txtPesoElect.getText()), txtColorElec.getText().toString(),cbxConsumoElec.getSelectedItem().toString().charAt(0), txtDescripElec.getText().toString(),Float.parseFloat(txtCargaLava.getText())); 
+			case 2: cont.NuevoLavarr(Float.parseFloat(txtPrecioBLava.getText()), Float.parseFloat(txtPesoLava.getText()), txtColorLava.getText().toString(),cbxConsumoLava.getSelectedItem().toString().charAt(0), txtDescripLava.getText().toString(),Float.parseFloat(txtCargaLava.getText())); 
 				tipoElec="Lavarropas";
 				break;
 			default: break;
