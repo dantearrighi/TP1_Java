@@ -115,7 +115,7 @@ return Statement.RETURN_GENERATED_KEYS;
 }
 public void DeleteElectro(int pIdElec)
 {
-	String SQLCons= "DELETE FROM Electrodomesticos where"+pIdElec+"=Electrodomesticos.id_electro";
+	String SQLCons= "DELETE FROM Electrodomestico where"+pIdElec+"=Electrodomesticos.id_electro";
 	ConexionBD conecta = new ConexionBD();
 	conecta.OpenConection();
 	Statement stmt = null;
@@ -157,24 +157,13 @@ public Electrodomestico[] GetAll()
 {
 	Electrodomestico[] ElectroDev = null;
 	int i;
+	try {
 	String SQLCons= "Select * FROM Electrodomestico";
 	ConexionBD conecta = new ConexionBD();
 	conecta.OpenConection();
-	Statement stmt = null;
-			try {
-				stmt = conecta.Cone.createStatement();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		/*	try {
-				  ResultSet rta = stmt.executeQuery(SQLCons); 
-				} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			*/
-			try {
+	PreparedStatement stmt = conecta.Cone.prepareStatement(SQLCons);
+	
+			
 				ResultSet rta = stmt.executeQuery(SQLCons);
 				for (i=0;i>stmt.getFetchSize();i++)
 					{
@@ -183,7 +172,7 @@ public Electrodomestico[] GetAll()
 							ElectroDev[i].setColor(rta.getNString("color_elect"));							
 							ElectroDev[i].consumoEnergetico = (char)rta.getObject("consumo_elect");
 							ElectroDev[i].setIdElect(rta.getInt("id_electro")); 
-							ElectroDev[i].setPreciobase(rta.getFloat("precoio_elect"));
+							ElectroDev[i].setPreciobase(rta.getFloat("precio_elect"));
 							ElectroDev[i].setPeso(rta.getFloat("peso_elect"));
 							rta.next(); 
 							} catch (SQLException e) {
@@ -199,38 +188,37 @@ public Electrodomestico[] GetAll()
 }
 public Electrodomestico GetOne(int pId)
 {
-	Electrodomestico ElectroDev = null;
 	
-	String SQLCons= "Select * FROM Electrodomestico WHERE id_electro="+pId;
+	Electrodomestico ElectroDev = new Electrodomestico();
+	try{
+		
+	 
+	
+	String SQLCons= "SELECT * FROM Electrodomestico WHERE Electrodomestico.id_electro=?";
 	ConexionBD conecta = new ConexionBD();
 	conecta.OpenConection();
-	Statement stmt = null;
-			try {
-				stmt = conecta.Cone.createStatement();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			/*try {
-				 ResultSet rta = stmt.executeQuery(SQLCons);
-				} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			*/
-			try {
-				 	ResultSet rta = stmt.executeQuery(SQLCons);
-					ElectroDev.setDescripcion(rta.getNString("descripcion"));
-				    ElectroDev.setColor(rta.getNString("color_elect"));
-					ElectroDev.setConsumoEnergetico((char)rta.getObject("consumo_elect"));
+	PreparedStatement stmt = conecta.Cone.prepareStatement(SQLCons);
+	stmt.setInt(1, pId);		
+	ResultSet rta = stmt.executeQuery();
+	while(rta.next())
+	{
+					ElectroDev.setDescripcion(rta.getString("descripcion"));
+				    ElectroDev.setColor(rta.getString("color_elect"));
+					ElectroDev.setConsumoEnergetico(rta.getString("consumo_elect").charAt(0));
 					ElectroDev.setIdElect(rta.getInt("id_electro"));
 					ElectroDev.setPreciobase(rta.getFloat("precio_elect"));
 					ElectroDev.setPeso(rta.getFloat("peso_elect"));
+	}
+				rta.close();
+				stmt.close();
+					
+					
 					} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
+					
 							}
-	return ElectroDev;		
+	return ElectroDev;
 }
 public Electrodomestico[] GetxConsumo (char pConsumo)
 {

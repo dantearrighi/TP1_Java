@@ -38,6 +38,28 @@ public class TelevisorNegocio extends ElectrodomesticoNegocio{
 		 return iDElectro;
 		
 	}
+	
+	public Televisor getOne(int idElectro)
+	{
+		Televisor ElectroDev = new Televisor();
+		ElectroDev = ElectroDev.GetOne(idElectro);
+		return ElectroDev;
+		
+	}
+
+	public boolean isTele (int idElectro)
+	{
+		Televisor ElectroDev = new Televisor();
+		ElectroDev = ElectroDev.GetOne(idElectro);
+		Integer pulgadas = new Integer(ElectroDev.getPulgadas());
+		if(pulgadas == null) {
+			return false;
+		} else {
+			return true;
+		}	
+		
+		
+	}
 
 	public void DeleteTelev(int idElectro)
 	{

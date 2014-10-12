@@ -29,6 +29,8 @@ public class ConexionBD {
 	static String userName = "root"; 
 	static String password = "";
 	
+	
+	
 	public void OpenConection()
 	{
 							try{

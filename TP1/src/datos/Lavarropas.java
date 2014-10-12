@@ -160,34 +160,28 @@ public class Lavarropas extends Electrodomestico
 	}
 	public Lavarropas GetOne(int pId)
 	{
-		Lavarropas ElectroDev = null;
-		
-		String SQLCons= "Select * FROM Electrodomestico WHERE id_electro="+pId;
+		Lavarropas ElectroDev = new Lavarropas();
+		try
+		{
+		String SQLCons= "SELECT * FROM Electrodomestico WHERE id_electro=?";
 		ConexionBD conecta = new ConexionBD();
 		conecta.OpenConection();
-		Statement stmt = null;
-				try {
-					stmt = conecta.Cone.createStatement();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				/*try {
-					 ResultSet rta = stmt.executeQuery(SQLCons);
-					} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				*/
-				try {
-						ResultSet rta = stmt.executeQuery(SQLCons);
-						ElectroDev.setDescripcion(rta.getNString("descripcion"));
-						ElectroDev.setColor(rta.getNString("color_elect"));
-						ElectroDev.setConsumoEnergetico((char)rta.getObject("consumo_elect"));
+		PreparedStatement stmt = conecta.Cone.prepareStatement(SQLCons);
+		stmt.setInt(1, pId);
+		
+						ResultSet rta = stmt.executeQuery();
+						while(rta.next())
+						{
+						ElectroDev.setDescripcion(rta.getString("descripcion"));
+						ElectroDev.setColor(rta.getString("color_elect"));
+						ElectroDev.setConsumoEnergetico(rta.getString("consumo_elect").charAt(0));
 						ElectroDev.setIdElect(rta.getInt("id_electro"));
 						ElectroDev.setPreciobase(rta.getFloat("precio_elect"));
 						ElectroDev.setPeso(rta.getFloat("peso_elect"));
 						ElectroDev.setCarga(rta.getFloat("carga_lava"));
+						}
+						rta.close();
+						stmt.close();
 						/*rta.next();*/ /*Es un solo elemento*/
 					} catch (SQLException e) {
 						// TODO Auto-generated catch block

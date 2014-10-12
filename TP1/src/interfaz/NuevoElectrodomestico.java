@@ -399,6 +399,7 @@ public class NuevoElectrodomestico extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 			Controlador cont = new Controlador();
 			String tipoElec = "";
+			/*Aplicar un metodo para evitar el default*/
 			switch(tabbedPane.getSelectedIndex())
 			{
 			case 0: cont.NuevoElectro(Float.parseFloat(txtPrecioBElect.getText()), Float.parseFloat(txtPesoElect.getText()), txtColorElec.getText().toString(),cbxConsumoElec.getSelectedItem().toString().charAt(0), txtDescripElec.getText().toString()); 

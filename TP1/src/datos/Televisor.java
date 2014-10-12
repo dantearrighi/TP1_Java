@@ -9,7 +9,7 @@ import java.sql.Statement;
 
 public class Televisor extends Electrodomestico {
 
-	private boolean sintonizadorTDT;
+	public boolean sintonizadorTDT;
 	private int pulgadas;
 	
 	public boolean isSintonizadorTDT() {
@@ -168,37 +168,36 @@ public class Televisor extends Electrodomestico {
 	}
 	public Televisor GetOne(int pId)
 	{
-		Televisor ElectroDev = null;
-		
-		String SQLCons= "Select * FROM Electrodomestico WHERE id_electro="+pId;
+		Televisor ElectroDev = new Televisor();
+		try
+		{
+		String SQLCons= "SELECT * FROM Electrodomestico WHERE id_electro=?";
 		ConexionBD conecta = new ConexionBD();
 		conecta.OpenConection();
-		Statement stmt = null;
-				try {
-					stmt = conecta.Cone.createStatement();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				/*try {
-					 ResultSet rta = stmt.executeQuery(SQLCons);
-					} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				*/
-				try {   ResultSet rta = stmt.executeQuery(SQLCons);
-						ElectroDev.setColor(rta.getNString("color_elect"));
-						ElectroDev.setConsumoEnergetico((char)rta.getObject("consumo_elect"));
+		PreparedStatement stmt = conecta.Cone.prepareStatement(SQLCons);
+		stmt.setInt(1, pId);
+						
+		
+		ResultSet rta = stmt.executeQuery();
+		while(rta.next())
+		{				
+						
+						ElectroDev.setColor(rta.getString("color_elect"));
+						ElectroDev.setDescripcion(rta.getString("descripcion"));
+						ElectroDev.setConsumoEnergetico(rta.getString("consumo_elect").charAt(0));
 						ElectroDev.setIdElect(rta.getInt("id_electro"));
 						ElectroDev.setPreciobase(rta.getFloat("precio_elect"));
 						ElectroDev.setPeso(rta.getFloat("peso_elect"));
 						ElectroDev.setSintonizadorTDT(rta.getBoolean("Sintoniz_tele"));
 						ElectroDev.setPulgadas(rta.getInt("Resol_tele"));
+		}
+						rta.close();
+						stmt.close();
 					} catch (SQLException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 								}
+		
 		return ElectroDev;		
 	}
 

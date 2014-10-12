@@ -1,6 +1,7 @@
 package negocio;
 
 import datos.Electrodomestico;
+import datos.Lavarropas;
 
 
 
@@ -138,6 +139,13 @@ public class ElectrodomesticoNegocio {
 		datos.Electrodomestico ElectroData = new Electrodomestico();
 		
 		ElectroData.DeleteElectro(idElectro);
+		
+	}
+	public Electrodomestico getOne(int idElectro)
+	{
+		Electrodomestico ElectroDev = new Electrodomestico();
+		ElectroDev = ElectroDev.GetOne(idElectro);
+		return ElectroDev;
 		
 	}
 

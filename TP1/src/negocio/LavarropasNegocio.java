@@ -2,6 +2,7 @@ package negocio;
 
 import datos.Electrodomestico;
 import datos.Lavarropas;
+import datos.Televisor;
 
 public class LavarropasNegocio extends ElectrodomesticoNegocio
 {
@@ -60,6 +61,28 @@ public class LavarropasNegocio extends ElectrodomesticoNegocio
 				
 			}
 
+			public Lavarropas getOne(int idElectro)
+			{
+				Lavarropas ElectroDev = new Lavarropas();
+				ElectroDev = ElectroDev.GetOne(idElectro);
+				return ElectroDev;
+				
+			}
+			
+			public boolean isLava (int idElectro)
+			{
+				Lavarropas ElectroDev = new Lavarropas();
+				ElectroDev = ElectroDev.GetOne(idElectro);
+				Float carga = new Float(ElectroDev.getCarga());
+				if(carga == null) {
+					return false;
+				} else {
+					return true;
+				}	
+				
+				
+			}
+			
 			public datos.Lavarropas UpdateElectro(int pIdLava, float pPrecio, float pPeso, String pColor, char pConsumo,float pCarga, String pDescripcion)
 			{
 				String pColorOk = this.comprobarColor(pColor);
