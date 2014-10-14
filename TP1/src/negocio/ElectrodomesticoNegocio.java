@@ -1,5 +1,7 @@
 package negocio;
 
+import java.util.ArrayList;
+
 import datos.Electrodomestico;
 import datos.Lavarropas;
 
@@ -134,6 +136,21 @@ public class ElectrodomesticoNegocio {
 	 
 	}
 
+	public int seteaConsumo(char pConsumo)
+	{
+		int rta=0;
+		switch(pConsumo)
+		{case 'A'&'a': rta=0; break;
+		 case 'B'&'b': rta=1; break;
+		 case 'C'&'c': rta=2; break;
+		 case 'D'&'d': rta=3; break;
+		 case 'E'&'e': rta=4; break;
+		 case 'F'&'f': rta=5; break;
+		 default:break;
+		 		}
+	return rta;
+	}
+	
 	public void DeleteElectro(int idElectro)
 	{
 		datos.Electrodomestico ElectroData = new Electrodomestico();
@@ -158,32 +175,43 @@ public class ElectrodomesticoNegocio {
 		return ElectroDat;
 	}
 
-	public Electrodomestico[] GetxConsumo(char cConsumo)
+	public ArrayList<Electrodomestico> GetAllEl()
+	{
+
+	Electrodomestico ElectroDat = new Electrodomestico();
+	ArrayList<Electrodomestico> AllElectroDat = new ArrayList<Electrodomestico>();
+	AllElectroDat = ElectroDat.GetAll();
+	
+	return AllElectroDat;
+	
+	}
+	
+	public ArrayList<Electrodomestico> GetxConsumo(char cConsumo)
 		{
 	
 		Electrodomestico ElectroDat = new Electrodomestico();
-		Electrodomestico [] AllElectroDat = null;
+		ArrayList<Electrodomestico> AllElectroDat = new ArrayList<Electrodomestico>();
 		AllElectroDat = ElectroDat.GetxConsumo(cConsumo);
 		
 		return AllElectroDat;
 		
 		}
 
-	public Electrodomestico[] GetxPrecios(float pMin, float pMax)
+	public ArrayList<Electrodomestico> GetxPrecios(float pMin, float pMax)
 	{
 
 	Electrodomestico ElectroDat = new Electrodomestico();
-	Electrodomestico [] AllElectroDat = null;
+	ArrayList<Electrodomestico> AllElectroDat = new ArrayList<Electrodomestico>();
 	AllElectroDat = ElectroDat.GetxPrecios(pMin, pMax);
 	
 	return AllElectroDat;
 	
 	}
-	public Electrodomestico[] GetxConsumoyPrec(float pMin, float pMax, char cConsumo)
+	public ArrayList<Electrodomestico> GetxConsumoyPrec(float pMin, float pMax, char cConsumo)
 	{
 
 	Electrodomestico ElectroDat = new Electrodomestico();
-	Electrodomestico [] AllElectroDat = null;
+	ArrayList<Electrodomestico> AllElectroDat = new ArrayList<Electrodomestico>();
 	AllElectroDat = ElectroDat.GetxPrecioYConsumo(pMin, pMax, cConsumo);
 	
 	return AllElectroDat;

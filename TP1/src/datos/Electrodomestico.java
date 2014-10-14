@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 
 public class Electrodomestico {
@@ -153,39 +154,34 @@ public int UpdateElect (Electrodomestico Electro)
 			}
 			return Statement.RETURN_GENERATED_KEYS;
 }
-public Electrodomestico[] GetAll()
+public ArrayList<Electrodomestico> GetAll()
 {
-	Electrodomestico[] ElectroDev = null;
-	int i;
-	try {
-	String SQLCons= "Select * FROM Electrodomestico";
-	ConexionBD conecta = new ConexionBD();
-	conecta.OpenConection();
-	PreparedStatement stmt = conecta.Cone.prepareStatement(SQLCons);
+ArrayList<Electrodomestico> ElectroDevArray = new ArrayList<Electrodomestico>();
 	
-			
-				ResultSet rta = stmt.executeQuery(SQLCons);
-				for (i=0;i>stmt.getFetchSize();i++)
-					{
-						try {
-							ElectroDev[i].setDescripcion(rta.getNString("descripcion"));
-							ElectroDev[i].setColor(rta.getNString("color_elect"));							
-							ElectroDev[i].consumoEnergetico = (char)rta.getObject("consumo_elect");
-							ElectroDev[i].setIdElect(rta.getInt("id_electro")); 
-							ElectroDev[i].setPreciobase(rta.getFloat("precio_elect"));
-							ElectroDev[i].setPeso(rta.getFloat("peso_elect"));
-							rta.next(); 
-							} catch (SQLException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					}
-			} catch (SQLException e) {
+	try {
+		String SQLCons= "Select id_electro, descripcion, color_elect, consumo_elect, peso_elect, precio_elect FROM Electrodomestico WHERE (carga_lava is null AND Resol_tele is null) ORDER BY descripcion";
+		ConexionBD conecta = new ConexionBD();
+		conecta.OpenConection();
+		PreparedStatement stmt = conecta.Cone.prepareStatement(SQLCons);
+		ResultSet rta = stmt.executeQuery();
+		 	while(rta.next())
+					{		Electrodomestico ElectroDev = new Electrodomestico();
+				 			ElectroDev.setDescripcion(rta.getString("descripcion"));
+							ElectroDev.setColor(rta.getString("color_elect"));						
+							ElectroDev.setConsumoEnergetico(rta.getString("consumo_elect").charAt(0));
+							ElectroDev.setIdElect(rta.getInt("id_electro")); 
+							ElectroDev.setPreciobase(rta.getFloat("precio_elect"));
+							ElectroDev.setPeso(rta.getFloat("peso_elect"));
+							ElectroDevArray.add(ElectroDev);
+							
+			}
+	}catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-	return ElectroDev;		
+	return ElectroDevArray;
 }
+
 public Electrodomestico GetOne(int pId)
 {
 	
@@ -220,140 +216,97 @@ public Electrodomestico GetOne(int pId)
 							}
 	return ElectroDev;
 }
-public Electrodomestico[] GetxConsumo (char pConsumo)
+public ArrayList<Electrodomestico> GetxConsumo (char pConsumo)
 {
-	Electrodomestico[] ElectroDev = null;
-	int i;
-	String SQLCons= "Select * FROM Electrodomestico WHERE consumo_elect="+pConsumo+"ORDER BY descripcion";
-	ConexionBD conecta = new ConexionBD();
-	conecta.OpenConection();
-	Statement stmt = null;
-			try {
-				stmt = conecta.Cone.createStatement();
-			} catch (SQLException e) {
+	
+	ArrayList<Electrodomestico> ElectroDevArray = new ArrayList<Electrodomestico>();
+	
+	try {
+		String SQLCons= "Select id_electro, descripcion, color_elect, consumo_elect, peso_elect, precio_elect FROM Electrodomestico WHERE (consumo_elect=? AND carga_lava is null AND Resol_tele is null) ORDER BY descripcion";
+		ConexionBD conecta = new ConexionBD();
+		conecta.OpenConection();
+		PreparedStatement stmt = conecta.Cone.prepareStatement(SQLCons);
+		stmt.setString(1, Character.toString(pConsumo));
+		ResultSet rta = stmt.executeQuery();
+		 	while(rta.next())
+					{		Electrodomestico ElectroDev = new Electrodomestico();
+				 			ElectroDev.setDescripcion(rta.getString("descripcion"));
+							ElectroDev.setColor(rta.getString("color_elect"));						
+							ElectroDev.setConsumoEnergetico(rta.getString("consumo_elect").charAt(0));
+							ElectroDev.setIdElect(rta.getInt("id_electro")); 
+							ElectroDev.setPreciobase(rta.getFloat("precio_elect"));
+							ElectroDev.setPeso(rta.getFloat("peso_elect"));
+							ElectroDevArray.add(ElectroDev);
+							
+			}
+	}catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		/*	try {
-				 ResultSet rta = stmt.executeQuery(SQLCons);
-				} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			*/
-			try {
-				 ResultSet rta = stmt.executeQuery(SQLCons);
-				for (i=0;i>stmt.getFetchSize();i++)
-					{
-						try {
-							ElectroDev[i].setDescripcion(rta.getNString("descripcion"));
-							ElectroDev[i].setColor(rta.getNString("color_elect"));						
-							ElectroDev[i].consumoEnergetico = (char)rta.getObject("consumo_elect");
-							ElectroDev[i].setIdElect(rta.getInt("id_electro")); 
-							ElectroDev[i].setPreciobase(rta.getFloat("precoio_elect"));
-							ElectroDev[i].setPeso(rta.getFloat("peso_elect"));
-							rta.next();
-							} catch (SQLException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-	return ElectroDev;
+	return ElectroDevArray;
 }
-public Electrodomestico[] GetxPrecios(float pMin, float pMax)
-				{Electrodomestico[] ElectroDev = null;
-				int i;
-				String SQLCons= "Select * FROM Electrodomestico WHERE (precio>="+pMin+"AND precio<="+pMax+")ORDER BY descripcion";
+public ArrayList<Electrodomestico> GetxPrecios(float pMin, float pMax)
+				{
+	
+				
+				ArrayList<Electrodomestico> ElectroDevArray = new ArrayList<Electrodomestico>();
+				try {
+				String SQLCons= "Select id_electro, descripcion, color_elect, consumo_elect, peso_elect, precio_elect FROM Electrodomestico WHERE (precio_elect>=? AND precio_elect<=? )ORDER BY descripcion";
 				ConexionBD conecta = new ConexionBD();
 				conecta.OpenConection();
-				Statement stmt = null;
-						try {
-							stmt = conecta.Cone.createStatement();
-						} catch (SQLException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					/*	try {
-							 ResultSet rta = stmt.executeQuery(SQLCons);
-							} catch (SQLException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-						*/
-						try {
-							 ResultSet rta = stmt.executeQuery(SQLCons);
-							for (i=0;i>stmt.getFetchSize();i++)
-								{
-									try {
-										ElectroDev[i].setDescripcion(rta.getNString("descripcion"));
-										ElectroDev[i].setColor(rta.getNString("color_elect"));						
-										ElectroDev[i].consumoEnergetico = (char)rta.getObject("consumo_elect");
-										ElectroDev[i].setIdElect(rta.getInt("id_electro")); 
-										ElectroDev[i].setPreciobase(rta.getFloat("precoio_elect"));
-										ElectroDev[i].setPeso(rta.getFloat("peso_elect"));
-										rta.next();
+				PreparedStatement stmt = conecta.Cone.prepareStatement(SQLCons);
+				stmt.setFloat(1, pMin);
+				stmt.setFloat(2, pMax);
+				ResultSet rta = stmt.executeQuery();
+				
+				while(rta.next())
+				{
+					Electrodomestico ElectroDev = new Electrodomestico();
+										ElectroDev.setDescripcion(rta.getString("descripcion"));
+										ElectroDev.setColor(rta.getString("color_elect"));							
+										ElectroDev.setConsumoEnergetico(rta.getString("consumo_elect").charAt(0));
+										ElectroDev.setIdElect(rta.getInt("id_electro")); 
+										ElectroDev.setPreciobase(rta.getFloat("precio_elect"));
+										ElectroDev.setPeso(rta.getFloat("peso_elect"));
+										ElectroDevArray.add(ElectroDev);
+					}
 										} catch (SQLException e) {
 										// TODO Auto-generated catch block
 										e.printStackTrace();
 									}
-								}
-						} catch (SQLException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-				return ElectroDev;
-				
-					
-				}
-public Electrodomestico[] GetxPrecioYConsumo(float pMin, float pMax, char pConsumo)
+							return ElectroDevArray;	}
+						
+public ArrayList<Electrodomestico> GetxPrecioYConsumo(float pMin, float pMax, char pConsumo)
 	{
-	Electrodomestico[] ElectroDev = null;
-	int i;
-	String SQLCons= "Select * FROM Electrodomestico WHERE (precio>="+pMin+"AND precio<="+pMax+"AND consumo_elect="+pConsumo+")ORDER BY descripcion";
+	
+	
+	ArrayList<Electrodomestico> ElectroDevArray = new ArrayList<Electrodomestico>();
+	try {
+	String SQLCons= "Select id_electro, descripcion, color_elect, consumo_elect, peso_elect, precio_elect FROM Electrodomestico WHERE (precio>=? AND precio<=? AND consumo_elect=? )ORDER BY descripcion";
 	ConexionBD conecta = new ConexionBD();
 	conecta.OpenConection();
-	Statement stmt = null;
-			try {
-				stmt = conecta.Cone.createStatement();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			/*try {
-				 ResultSet rta = stmt.executeQuery(SQLCons);
-				} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			*/
-			try {
-				 ResultSet rta = stmt.executeQuery(SQLCons);
-				for (i=0;i>stmt.getFetchSize();i++)
-					{
-						try {
-							ElectroDev[i].setDescripcion(rta.getNString("descripcion"));
-							ElectroDev[i].setColor(rta.getNString("color_elect"));							
-							ElectroDev[i].consumoEnergetico = (char)rta.getObject("consumo_elect");
-							ElectroDev[i].setIdElect(rta.getInt("id_electro")); 
-							ElectroDev[i].setPreciobase(rta.getFloat("precoio_elect"));
-							ElectroDev[i].setPeso(rta.getFloat("peso_elect"));
-							rta.next();
+	PreparedStatement stmt = conecta.Cone.prepareStatement(SQLCons);
+	stmt.setFloat(1, pMin);
+	stmt.setFloat(2, pMax);
+	stmt.setString(3, Character.toString(pConsumo));
+	ResultSet rta = stmt.executeQuery();
+	
+	while(rta.next())
+	{
+		Electrodomestico ElectroDev = new Electrodomestico();
+							ElectroDev.setDescripcion(rta.getNString("descripcion"));
+							ElectroDev.setColor(rta.getNString("color_elect"));							
+							ElectroDev.setConsumoEnergetico(rta.getString("consumo_elect").charAt(0));
+							ElectroDev.setIdElect(rta.getInt("id_electro")); 
+							ElectroDev.setPreciobase(rta.getFloat("precio_elect"));
+							ElectroDev.setPeso(rta.getFloat("peso_elect"));
+							ElectroDevArray.add(ElectroDev);
+		}
 							} catch (SQLException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-					}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-	return ElectroDev;
-	
-	}
+				return ElectroDevArray;	}
 }
 
 	

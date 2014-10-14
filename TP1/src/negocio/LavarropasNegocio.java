@@ -1,5 +1,7 @@
 package negocio;
 
+import java.util.ArrayList;
+
 import datos.Electrodomestico;
 import datos.Lavarropas;
 import datos.Televisor;
@@ -73,8 +75,8 @@ public class LavarropasNegocio extends ElectrodomesticoNegocio
 			{
 				Lavarropas ElectroDev = new Lavarropas();
 				ElectroDev = ElectroDev.GetOne(idElectro);
-				Float carga = new Float(ElectroDev.getCarga());
-				if(carga == null) {
+				float carga = 0;
+				if(Float.compare(ElectroDev.getCarga(), carga)==0) {
 					return false;
 				} else {
 					return true;
@@ -93,34 +95,45 @@ public class LavarropasNegocio extends ElectrodomesticoNegocio
 				return ElectroDat;
 			}
 
-			public datos.Lavarropas[] GetxConsumo(char cConsumo)
+			public ArrayList<Lavarropas> GetAllLa()
 			{
 		
-			datos.Lavarropas ElectroDat = new Lavarropas();
-			Lavarropas [] AllElectroDat = null;
-			AllElectroDat = ElectroDat.GetxConsumo(cConsumo);
+			Lavarropas ElectroDat = new Lavarropas();
+			ArrayList<Lavarropas> AllElectroDat = new ArrayList<Lavarropas>();
+			AllElectroDat = ElectroDat.GetAllLava();
+			
+			return AllElectroDat;
+			
+			}
+			
+			public ArrayList<Lavarropas> GetXConsumoLava(char cConsumo)
+			{
+		
+			Lavarropas ElectroDat = new Lavarropas();
+			ArrayList<Lavarropas> AllElectroDat = new ArrayList<Lavarropas>();
+			AllElectroDat = ElectroDat.GetXConsumoLava(cConsumo);
 			
 			return AllElectroDat;
 			
 			}
 
-			public Lavarropas[] GetxPrecios(float pMin, float pMax)
+			public ArrayList<Lavarropas> GetxPreciosLava(float pMin, float pMax)
 		{
 
 		Lavarropas ElectroDat = new Lavarropas();
-		Lavarropas [] AllElectroDat = null;
-		AllElectroDat = ElectroDat.GetxPrecios(pMin, pMax);
+		ArrayList<Lavarropas> AllElectroDat = new ArrayList<Lavarropas>();
+		AllElectroDat = ElectroDat.GetXPreciosLava(pMin, pMax);
 		
 		return AllElectroDat;
 		
 		}
 			
-			public Lavarropas[] GetxConsumoyPrec(float pMin, float pMax, char cConsumo)
+			public ArrayList<Lavarropas> GetxConsumoyPrecLava(float pMin, float pMax, char cConsumo)
 		{
 
 		Lavarropas ElectroDat = new Lavarropas();
-		Lavarropas [] AllElectroDat = null;
-		AllElectroDat = ElectroDat.GetxPrecioYConsumo(pMin, pMax, cConsumo);
+		ArrayList<Lavarropas> AllElectroDat = new ArrayList<Lavarropas>();
+		AllElectroDat = ElectroDat.GetxPrecioYConsumoLava(pMin, pMax, cConsumo);
 		
 		return AllElectroDat;
 		

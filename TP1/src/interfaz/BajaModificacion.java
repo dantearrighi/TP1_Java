@@ -17,12 +17,14 @@ import java.awt.Font;
 import javax.swing.JCheckBox;
 import javax.swing.JButton;
 
+import negocio.ElectrodomesticoNegocio;
 import datos.Electrodomestico;
 import datos.Lavarropas;
 import datos.Televisor;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.DefaultComboBoxModel;
 
 public class BajaModificacion extends JFrame {
 
@@ -117,6 +119,7 @@ public class BajaModificacion extends JFrame {
 		panel.add(txtPrecioB);
 		
 		JComboBox<Object> cbxConsumo = new JComboBox<Object>();
+		cbxConsumo.setModel(new DefaultComboBoxModel(new String[] {"A", "B", "C", "D", "E", "F"}));
 		cbxConsumo.setBounds(135, 151, 50, 20);
 		panel.add(cbxConsumo);
 		
@@ -181,6 +184,8 @@ public class BajaModificacion extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				Controlador controla = new Controlador();
 				int ID = controla.elegirElectroaMostrar(Integer.parseInt(txtId.getText()));
+				ElectrodomesticoNegocio ElectroConsumo = new ElectrodomesticoNegocio();
+				cbxConsumo.setSelectedItem("A");
 				switch(ID)
 				{
 				case 0: txtResolCarga.setVisible(false);
@@ -190,28 +195,46 @@ public class BajaModificacion extends JFrame {
 						ElectroMostrar = controla.mostrarElectro(Integer.parseInt(txtId.getText()));
 						txtId.setEnabled(false);
 						txtColor.setText(ElectroMostrar.getColor());
+						txtColor.setEnabled(true);
+						txtColor.setEditable(true);
+						txtDescripcion.setEnabled(true);
+						txtDescripcion.setEditable(true);
+						txtPeso.setEnabled(true);
+						txtPeso.setEditable(true);
+						txtPrecioB.setEnabled(true);
+						txtPrecioB.setEditable(true);
+						txtResolCarga.setEnabled(true);
+						txtResolCarga.setEditable(true);
 						txtDescripcion.setText(ElectroMostrar.getDescripcion());
 						txtPeso.setText(String.valueOf(ElectroMostrar.getPeso()));
 						txtPrecioB.setText(String.valueOf(ElectroMostrar.getPreciobase()));
+						cbxConsumo.setSelectedIndex(ElectroConsumo.seteaConsumo(ElectroMostrar.getConsumoEnergetico()));
 						
 						break;
 				case 1: txtResolCarga.setVisible(true);
 						label_10.setText("Resolucion");
+						label_10.setVisible(true);
 						chkSintonizador.setVisible(true);
 						Televisor TeleMostrar = new Televisor();
 						TeleMostrar = controla.mostrarelectro((Integer.parseInt(txtId.getText())));
 						txtId.setEnabled(false);
 						txtColor.setText(TeleMostrar.getColor());
 						txtColor.setEnabled(true);
+						txtColor.setEditable(true);
 						txtDescripcion.setText(TeleMostrar.getDescripcion());
 						txtDescripcion.setEnabled(true);
+						txtDescripcion.setEditable(true);
 						txtPeso.setText(String.valueOf(TeleMostrar.getPeso()));
 						txtPeso.setEnabled(true);
+						txtPeso.setEditable(true);
 						txtPrecioB.setText(String.valueOf(TeleMostrar.getPreciobase()));
 						txtPrecioB.setEnabled(true);
+						txtPrecioB.setEditable(true);
 						chkSintonizador.setSelected(TeleMostrar.isSintonizadorTDT());
 						txtResolCarga.setText(String.valueOf(TeleMostrar.getPulgadas()));
 						txtResolCarga.setEnabled(true);
+						txtResolCarga.setEditable(true);
+						/*cbxConsumo.setSelectedIndex(ElectroConsumo.seteaConsumo(TeleMostrar.getConsumoEnergetico()));*/
 						break;
 				case 2:	txtResolCarga.setVisible(true);
 						label_10.setText("Carga");
@@ -222,14 +245,21 @@ public class BajaModificacion extends JFrame {
 						txtId.setEnabled(false);
 						txtColor.setText(LavaMostrar.getColor());
 						txtColor.setEnabled(true);
+						txtColor.setEditable(true);
 						txtDescripcion.setText(LavaMostrar.getDescripcion());
 						txtDescripcion.setEnabled(true);
+						txtDescripcion.setEditable(true);
 						txtPeso.setText(String.valueOf(LavaMostrar.getPeso()));
 						txtPeso.setEnabled(true);
+						txtPeso.setEditable(true);
 						txtPrecioB.setText(String.valueOf(LavaMostrar.getPreciobase()));
 						txtPrecioB.setEnabled(true);
+						txtPrecioB.setEditable(true);
 						txtResolCarga.setText(String.valueOf(LavaMostrar.getCarga()));
 						txtResolCarga.setEnabled(true);
+						txtResolCarga.setEditable(true);
+						/*cbxConsumo.setSelectedIndex(ElectroConsumo.seteaConsumo(LavaMostrar.getConsumoEnergetico()));*/
+						
 						break;	
 				default:break;
 						
@@ -251,6 +281,12 @@ public class BajaModificacion extends JFrame {
 		contentPane.add(btnModificar);
 		
 		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			BajaModificacion.this.setVisible(false);
+			BajaModificacion.this.dispose();
+			}
+		});
 		btnCancelar.setBounds(428, 311, 89, 23);
 		contentPane.add(btnCancelar);
 		

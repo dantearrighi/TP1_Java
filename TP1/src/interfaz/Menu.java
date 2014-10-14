@@ -64,6 +64,13 @@ public class Menu extends JFrame {
 		contentPane.add(btnNewElec);
 		
 		JButton btnBajaModif = new JButton("Baja o Modificacion de Electrodomestico");
+		btnBajaModif.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				BajaModificacion frmBajaModif = new BajaModificacion();
+				
+				frmBajaModif.setVisible(true);
+			}
+		});
 		btnBajaModif.setBounds(196, 212, 240, 42);
 		contentPane.add(btnBajaModif);
 		
@@ -72,6 +79,12 @@ public class Menu extends JFrame {
 		contentPane.add(btnConsultaImpCons);
 		
 		JButton btnSalir = new JButton("Salir");
+		btnSalir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Menu.this.setVisible(false);
+				Menu.this.dispose();
+			}
+		});
 		btnSalir.setBounds(543, 354, 89, 23);
 		contentPane.add(btnSalir);
 	}

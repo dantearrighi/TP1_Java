@@ -1,8 +1,9 @@
 package negocio;
 
+import java.util.ArrayList;
+
 import datos.Electrodomestico;
 import datos.Lavarropas;
-
 import datos.Televisor;
 
 public class TelevisorNegocio extends ElectrodomesticoNegocio{
@@ -51,8 +52,7 @@ public class TelevisorNegocio extends ElectrodomesticoNegocio{
 	{
 		Televisor ElectroDev = new Televisor();
 		ElectroDev = ElectroDev.GetOne(idElectro);
-		Integer pulgadas = new Integer(ElectroDev.getPulgadas());
-		if(pulgadas == null) {
+		if(Integer.compare(ElectroDev.getPulgadas(), 0)==0) {
 			return false;
 		} else {
 			return true;
@@ -79,34 +79,47 @@ public class TelevisorNegocio extends ElectrodomesticoNegocio{
 		return ElectroDat;
 	}
 	
-	public datos.Televisor[] GetxConsumo(char cConsumo)
+	public ArrayList<Televisor> GetAllTe()
 	{
 
-	datos.Televisor ElectroDat = new Televisor();
-	Televisor [] AllElectroDat = null;
-	AllElectroDat = ElectroDat.GetxConsumo(cConsumo);
+	Televisor ElectroDat = new Televisor();
+	ArrayList<Televisor> AllElectroDat = new ArrayList<Televisor>();
+	AllElectroDat = ElectroDat.GetAllTele();
+	return AllElectroDat;
+	
+	}
+	
+	public ArrayList<Televisor> GetXConsumoTele(char cConsumo)
+	{
+
+	Televisor ElectroDat = new Televisor();
+	ArrayList<Televisor> AllElectroDat = new ArrayList<Televisor>();
+	AllElectroDat = ElectroDat.GetXConsumoTele(cConsumo);
 	
 	return AllElectroDat;
 	
 	}
 
-	public Televisor[] GetxPrecios(float pMin, float pMax)
+	
+	
+	public ArrayList<Televisor> GetxPreciosTele(float pMin, float pMax)
 {
 
 	Televisor ElectroDat = new Televisor();
-	Televisor [] AllElectroDat = null;
-	AllElectroDat = ElectroDat.GetxPrecios(pMin, pMax);
+	ArrayList<Televisor> AllElectroDat = new ArrayList<Televisor>();
+	AllElectroDat = ElectroDat.GetXPreciosTele(pMin, pMax);
 	
 	return AllElectroDat;
 
 }
 	
-	public Televisor[] GetxConsumoyPrec(float pMin, float pMax, char cConsumo)
+	public ArrayList<Televisor> GetxConsumoyPrecTele(float pMin, float pMax, char cConsumo)
 {
 
 	Televisor ElectroDat = new Televisor();
-	Televisor [] AllElectroDat = null;
-	AllElectroDat = ElectroDat.GetxPrecioYConsumo(pMin, pMax, cConsumo);
+	ArrayList<Televisor> AllElectroDat = new ArrayList<Televisor>();
+	AllElectroDat = ElectroDat.GetxPrecioYConsumoTele(pMin, pMax, cConsumo);
+	
 	
 	return AllElectroDat;
 
