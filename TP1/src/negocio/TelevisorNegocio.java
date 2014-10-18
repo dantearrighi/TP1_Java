@@ -76,6 +76,7 @@ public class TelevisorNegocio extends ElectrodomesticoNegocio{
 		float pPrecioOk = this.precioFinal(pConsumo, pPeso, pPrecio);
 		Televisor ElectroDat = new Televisor(pPrecioOk, pPeso, pConsumoOk, pColorOk, pSintoniz, pResolucion);
 		ElectroDat.setIdElect(idTv);
+		ElectroDat.UpdateTelev(ElectroDat);
 		return ElectroDat;
 	}
 	

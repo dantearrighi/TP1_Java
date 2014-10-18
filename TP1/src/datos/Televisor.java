@@ -84,39 +84,38 @@ public class Televisor extends Electrodomestico {
 	}
 	public void DeleteTelev(int pIdElec)
 	{
-		String SQLCons= "DELETE FROM Electrodomesticos where"+pIdElec+"=Electrodomesticos.id_electro";
-		ConexionBD conecta = new ConexionBD();
-		conecta.OpenConection();
-		Statement stmt = null;
-				try {
-					stmt = conecta.Cone.createStatement();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				try {
-					ResultSet rta = stmt.executeQuery(SQLCons);
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+		String SQLCons= "DELETE FROM Electrodomesticos where ?=id_electro";
+		try {
+			ConexionBD conecta = new ConexionBD();
+			conecta.OpenConection();
+			PreparedStatement stmt = conecta.Cone.prepareStatement(SQLCons);
+			stmt.setInt(1, pIdElec);
+			int rta = stmt.executeUpdate();
+		}
+		catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 				
 		}
 	public int UpdateTelev (Televisor Telev)
 	{
-		String SQLCons= "UPDATE Electrodomesticos SET (color_elect="+Telev.getColor()+", consumo_elect="+Telev.getConsumoEnergetico()+", precio_elect="+Telev.getPreciobase()+", peso_elect="+Telev.getPeso()+ ", Sintoniz_tele="+Telev.isSintonizadorTDT()+", Resol_tele="+Telev.getPulgadas()+") WHERE"+Telev.getIdElect()+"=Electrodomesticos.id_electro";
+		String SQLCons= "UPDATE Electrodomestico SET color_elect=? , consumo_elect=?, precio_elect=?, peso_elect=?, Sintoniz_tele=?, Resol_tele=?, descripcion=? WHERE ?=id_electro";
+		try{
 		ConexionBD conecta = new ConexionBD();
 		conecta.OpenConection();
-		Statement stmt = null;
-				try {
-					stmt = conecta.Cone.createStatement();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				try {
-					ResultSet rta = stmt.executeQuery(SQLCons);
-				} catch (SQLException e) {
+		PreparedStatement stmt = conecta.Cone.prepareStatement(SQLCons);
+		stmt.setString(1, Telev.getColor());
+		stmt.setObject(2, Telev.getConsumoEnergetico(),java.sql.Types.CHAR);
+		stmt.setFloat(3, Telev.getPreciobase());
+		stmt.setFloat(4, Telev.getPeso());
+		stmt.setBoolean(5, Telev.isSintonizadorTDT());
+		stmt.setInt(6, Telev.getPulgadas());
+		stmt.setString(7, Telev.getDescripcion());
+		stmt.setInt(8, Telev.getIdElect());
+		int rta = stmt.executeUpdate();
+		}		
+				 catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}

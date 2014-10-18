@@ -391,6 +391,13 @@ public class NuevoElectrodomestico extends JFrame {
 		panel_1.add(lblKg_1);
 		
 		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				NuevoElectrodomestico.this.dispose();
+			
+			}
+		});
 		btnCancelar.setBounds(434, 311, 89, 23);
 		contentPane.add(btnCancelar);
 		

@@ -3,10 +3,12 @@ package interfaz;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
+import javax.naming.LimitExceededException;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.JComboBox;
@@ -24,7 +26,10 @@ import datos.Televisor;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
 import javax.swing.DefaultComboBoxModel;
+
+import org.omg.PortableServer.ID_ASSIGNMENT_POLICY_ID;
 
 public class BajaModificacion extends JFrame {
 
@@ -234,7 +239,7 @@ public class BajaModificacion extends JFrame {
 						txtResolCarga.setText(String.valueOf(TeleMostrar.getPulgadas()));
 						txtResolCarga.setEnabled(true);
 						txtResolCarga.setEditable(true);
-						/*cbxConsumo.setSelectedIndex(ElectroConsumo.seteaConsumo(TeleMostrar.getConsumoEnergetico()));*/
+						cbxConsumo.setSelectedIndex(ElectroConsumo.seteaConsumo(TeleMostrar.getConsumoEnergetico()));
 						break;
 				case 2:	txtResolCarga.setVisible(true);
 						label_10.setText("Carga");
@@ -258,7 +263,7 @@ public class BajaModificacion extends JFrame {
 						txtResolCarga.setText(String.valueOf(LavaMostrar.getCarga()));
 						txtResolCarga.setEnabled(true);
 						txtResolCarga.setEditable(true);
-						/*cbxConsumo.setSelectedIndex(ElectroConsumo.seteaConsumo(LavaMostrar.getConsumoEnergetico()));*/
+						cbxConsumo.setSelectedIndex(ElectroConsumo.seteaConsumo(LavaMostrar.getConsumoEnergetico()));
 						
 						break;	
 				default:break;
@@ -277,6 +282,35 @@ public class BajaModificacion extends JFrame {
 		contentPane.add(lblBajamodificacionDeElectrodomesticos);
 		
 		JButton btnModificar = new JButton("Guardar");
+		btnModificar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				Controlador controla = new Controlador();
+				int ID = controla.elegirElectroaMostrar(Integer.parseInt(txtId.getText()));
+				switch(ID)
+				{
+				case 0: controla.ActualizaElec(Integer.parseInt(txtId.getText()), Float.parseFloat(txtPrecioB.getText()), Float.parseFloat(txtPeso.getText()), txtColor.getText(), cbxConsumo.getSelectedItem().toString().charAt(0), txtDescripcion.getText());
+					break;
+				case 1:	controla.ActualizaTele(Integer.parseInt(txtId.getText()), Float.parseFloat(txtPrecioB.getText()), Float.parseFloat(txtPeso.getText()), txtColor.getText(), cbxConsumo.getSelectedItem().toString().charAt(0),Integer.parseInt(txtResolCarga.getText()), chkSintonizador.isSelected(),txtDescripcion.getText());
+					break;
+				case 2: controla.ActualizaLava(Integer.parseInt(txtId.getText()), Float.parseFloat(txtPrecioB.getText()), Float.parseFloat(txtPeso.getText()), txtColor.getText(), cbxConsumo.getSelectedItem().toString().charAt(0),Float.parseFloat(txtResolCarga.getText()),txtDescripcion.getText());
+					break;
+				default:break;
+				
+				}
+				JOptionPane.showMessageDialog(null, "Se actualizo el artículo");
+				txtId.setEditable(true);
+				txtId.setEnabled(true);
+				txtColor.setText("");
+				txtDescripcion.setText("");
+				txtId.setText("");
+				txtPeso.setText("");
+				txtPrecioB.setText("");
+				txtResolCarga.setText("");
+				chkSintonizador.setSelected(false);
+				cbxConsumo.selectWithKeyChar('A');
+			}
+		});
 		btnModificar.setBounds(329, 311, 89, 23);
 		contentPane.add(btnModificar);
 		
@@ -291,6 +325,29 @@ public class BajaModificacion extends JFrame {
 		contentPane.add(btnCancelar);
 		
 		JButton btnEliminar = new JButton("Eliminar");
+		btnEliminar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			Controlador controla = new Controlador();
+			controla.EliminaElec(Integer.parseInt(txtId.getText()));
+			JOptionPane.showMessageDialog(null, "Se elimino el articulo");
+			limpiarTXT(cbxConsumo, chkSintonizador);
+			
+			}
+
+			public void limpiarTXT(JComboBox<Object> cbxConsumo,
+					JCheckBox chkSintonizador) {
+				txtId.setEditable(true);
+				txtId.setEnabled(true);
+				txtColor.setText("");
+				txtDescripcion.setText("");
+				txtId.setText("");
+				txtPeso.setText("");
+				txtPrecioB.setText("");
+				txtResolCarga.setText("");
+				chkSintonizador.setSelected(false);
+				cbxConsumo.selectWithKeyChar('A');
+			}
+		});
 		btnEliminar.setBounds(230, 311, 89, 23);
 		contentPane.add(btnEliminar);
 	}

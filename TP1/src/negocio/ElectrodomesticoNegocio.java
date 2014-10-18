@@ -172,6 +172,7 @@ public class ElectrodomesticoNegocio {
 		float pPrecioOk = this.precioFinal(pConsumo, pPeso, pPrecio);
 		Electrodomestico ElectroDat = new Electrodomestico(pPrecioOk, pPeso, pColorOk, pConsumo, pDescripcion);
 		ElectroDat.setIdElect(pIdElect);
+		ElectroDat.UpdateElect(ElectroDat);
 		return ElectroDat;
 	}
 

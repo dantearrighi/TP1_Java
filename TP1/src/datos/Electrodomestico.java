@@ -116,19 +116,15 @@ return Statement.RETURN_GENERATED_KEYS;
 }
 public void DeleteElectro(int pIdElec)
 {
-	String SQLCons= "DELETE FROM Electrodomestico where"+pIdElec+"=Electrodomesticos.id_electro";
-	ConexionBD conecta = new ConexionBD();
-	conecta.OpenConection();
-	Statement stmt = null;
-			try {
-				stmt = conecta.Cone.createStatement();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			try {
-				ResultSet rta = stmt.executeQuery(SQLCons);
-			} catch (SQLException e) {
+	String SQLCons= "DELETE FROM Electrodomestico where ?= id_electro";
+	try {
+		ConexionBD conecta = new ConexionBD();
+		conecta.OpenConection();
+		PreparedStatement stmt = conecta.Cone.prepareStatement(SQLCons);
+		stmt.setInt(1, pIdElec);
+		int rta = stmt.executeUpdate();
+		
+				} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
@@ -136,19 +132,20 @@ public void DeleteElectro(int pIdElec)
 	}
 public int UpdateElect (Electrodomestico Electro)
 {
-	String SQLCons= "UPDATE Electrodomesticos SET (color_elect="+Electro.getColor()+", descripcion="+Electro.getDescripcion()+", consumo_elect="+Electro.getConsumoEnergetico()+", precio_elect="+Electro.getPreciobase()+", peso_elect="+Electro.getPeso()+ ") WHERE"+Electro.getIdElect()+"=Electrodomesticos.id_electro";
+	String SQLCons= "UPDATE Electrodomestico SET color_elect=? , consumo_elect=?, precio_elect=?, peso_elect=?, descripcion=? WHERE ?=id_electro";
+	try{
 	ConexionBD conecta = new ConexionBD();
 	conecta.OpenConection();
-	Statement stmt = null;
-			try {
-				stmt = conecta.Cone.createStatement();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			try {
-				ResultSet rta = stmt.executeQuery(SQLCons);
-			} catch (SQLException e) {
+	PreparedStatement stmt = conecta.Cone.prepareStatement(SQLCons);
+	stmt.setString(1, Electro.getColor());
+	stmt.setObject(2, Electro.getConsumoEnergetico(),java.sql.Types.CHAR);
+	stmt.setFloat(3, Electro.getPreciobase());
+	stmt.setFloat(4, Electro.getPeso());
+	stmt.setString(5, Electro.getDescripcion());
+	stmt.setInt(6, Electro.getIdElect());
+	int rta = stmt.executeUpdate();
+	}		
+			 catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}

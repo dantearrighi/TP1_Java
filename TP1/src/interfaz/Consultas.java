@@ -7,15 +7,21 @@ import java.awt.List;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.TableColumnModelListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 import javax.swing.JRadioButton;
 import javax.swing.JLabel;
 
 import java.awt.Font;
 
 import javax.swing.ButtonGroup;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
+import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -32,6 +38,7 @@ import datos.Televisor;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.Iterator;
 
 public class Consultas extends JFrame {
@@ -61,6 +68,7 @@ public class Consultas extends JFrame {
 	 * Create the frame.
 	 */
 	public Consultas() {
+		setAutoRequestFocus(false);
 		setAlwaysOnTop(true);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -121,14 +129,7 @@ public class Consultas extends JFrame {
 		JLabel lblMax = new JLabel("Max");
 		lblMax.setBounds(357, 102, 46, 14);
 		contentPane.add(lblMax);
-		
-		Jtable = new JTable();
-		Jtable.setRowSelectionAllowed(false);
-		Jtable.setBounds(56, 190, 567, 223);
-				
-		
-		contentPane.add(Jtable);
-		
+	
 		JButton btnBuscar = new JButton("Buscar");
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -138,27 +139,27 @@ public class Consultas extends JFrame {
 				{
 				case 1:ArrayList<Electrodomestico> Elec;/*getall electro*/
 						setearParaElectro(model);
-						
+											
 						Elec=Consultas.GetAllEl();
 						llenarModeloElectro(model, Elec);
 							break;
 							
 				case 2:ArrayList<Electrodomestico> ElecC;/*electro por Consumo*/
 						setearParaElectro(model);
-				
+						
 						ElecC=Consultas.ElectxConsumo(cbxConsumo.getSelectedItem().toString().charAt(0));
 						llenarModeloElectro(model, ElecC);
 							break;
 					
 				case 3:ArrayList<Electrodomestico> ElecP;/*Electro por precio*/
 						setearParaElectro(model);
-						
+					validarCamposCompletos();
 						ElecP=Consultas.ElectxPrecio(Float.parseFloat(txtPreMin.getText()), Float.parseFloat(txtPreMax.getText()));
 						llenarModeloElectro(model, ElecP);
 							break;
 				case 4:ArrayList<Electrodomestico> ElecCP;/*electro por precio y consumo*/
 				setearParaElectro(model);
-				
+				validarCamposCompletos();
 				ElecCP=Consultas.ElectxPrecioyConsumo(Float.parseFloat(txtPreMin.getText()), Float.parseFloat(txtPreMax.getText()),cbxConsumo.getSelectedItem().toString().charAt(0));
 				llenarModeloElectro(model, ElecCP);
 					break;
@@ -177,12 +178,14 @@ public class Consultas extends JFrame {
 				
 				case 7:ArrayList<Televisor> TeleP;/* Tele x Precio*/
 				setearParaTele(model);
+				validarCamposCompletos();
 					TeleP=Consultas.ElectxPrecioTele(Float.parseFloat(txtPreMin.getText()), Float.parseFloat(txtPreMax.getText()));
 				llenarModeloTele(model, TeleP);
 				break;
 				
 				case 8:ArrayList<Televisor> TeleCP;/*Tele x precio y consumo*/
 				setearParaTele(model);
+				validarCamposCompletos();
 					TeleCP=Consultas.ElectxPrecioTele(Float.parseFloat(txtPreMin.getText()), Float.parseFloat(txtPreMax.getText()),cbxConsumo.getSelectedItem().toString().charAt(0));
 				llenarModeloTele(model, TeleCP);
 				break;
@@ -202,12 +205,14 @@ public class Consultas extends JFrame {
 				
 				case 11:ArrayList<Lavarropas> LavaP;/*Lava por precio*/
 				setearParaLava(model);
+				validarCamposCompletos();
 					LavaP=Consultas.ElectxPrecioLava(Float.parseFloat(txtPreMin.getText()), Float.parseFloat(txtPreMax.getText()));
 				llenarModeloLava(model, LavaP);
 				break;
 				
 				case 12:ArrayList<Lavarropas> LavaCP;/*Lava por consumo y precio*/
 				setearParaLava(model);
+				validarCamposCompletos();
 					LavaCP=Consultas.ElectxPrecioLava(Float.parseFloat(txtPreMin.getText()), Float.parseFloat(txtPreMax.getText()),cbxConsumo.getSelectedItem().toString().charAt(0));
 				llenarModeloLava(model, LavaCP);
 				break;
@@ -215,7 +220,16 @@ public class Consultas extends JFrame {
 				}
 				
 				Jtable.setModel(model);
+				 
 				Jtable.setVisible(true);
+			}
+
+			private void validarCamposCompletos() {
+				if(txtPreMin.getText().equals("")|| txtPreMax.getText().equals(""))
+				{
+					JOptionPane.showMessageDialog(null, "Por favor complete los campos necesarios");
+										
+				}
 			}
 
 			private void llenarModeloLava(DefaultTableModel model,
@@ -241,13 +255,15 @@ public class Consultas extends JFrame {
 			}
 
 			private void setearParaLava(DefaultTableModel model) {
-				model.addColumn("ID");
+				
+										model.addColumn("ID");
 										model.addColumn("Descripcion");
 										model.addColumn("Color");
 										model.addColumn("Consumo Energético");
 										model.addColumn("Peso");
 										model.addColumn("Carga");
 										model.addColumn("Precio");
+										Jtable.getColumnModel().getColumn(3).setHeaderValue("ID");
 										
 										ArrayList<Lavarropas> Lava = new ArrayList<Lavarropas>();
 			}
@@ -276,7 +292,9 @@ public class Consultas extends JFrame {
 			}
 
 			private void setearParaTele(DefaultTableModel model) {
-				model.addColumn("ID");
+										
+				
+										model.addColumn("ID");
 										model.addColumn("Descripcion");
 										model.addColumn("Color");
 										model.addColumn("Consumo Energético");
@@ -284,6 +302,8 @@ public class Consultas extends JFrame {
 										model.addColumn("Resolucion");
 										model.addColumn("Sintonizador TDT");
 										model.addColumn("Precio");
+										
+										
 										
 										ArrayList<Televisor> Tele = new ArrayList<Televisor>();
 			}
@@ -309,17 +329,28 @@ public class Consultas extends JFrame {
 			}
 
 			private void setearParaElectro(DefaultTableModel model) {
-				model.addColumn("ID");
+										
+								
+										model.addColumn("ID");
 										model.addColumn("Descripcion");
 										model.addColumn("Color");
 										model.addColumn("Consumo Energético");
 										model.addColumn("Peso");
 										model.addColumn("Precio");
-										
+																				
 										ArrayList<Electrodomestico> Elec = new ArrayList<Electrodomestico>();
 			}
+			
 		});
 		btnBuscar.setBounds(291, 130, 89, 23);
 		contentPane.add(btnBuscar);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 174, 662, 249);
+		contentPane.add(scrollPane);
+		
+		Jtable = new JTable();
+		scrollPane.setViewportView(Jtable);
+		Jtable.setRowSelectionAllowed(false);
 	}
 }

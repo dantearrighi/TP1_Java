@@ -87,11 +87,12 @@ public class LavarropasNegocio extends ElectrodomesticoNegocio
 			
 			public datos.Lavarropas UpdateElectro(int pIdLava, float pPrecio, float pPeso, String pColor, char pConsumo,float pCarga, String pDescripcion)
 			{
-				String pColorOk = this.comprobarColor(pColor);
+				/*String pColorOk = this.comprobarColor(pColor);*/
 				char pConsumoOk = this.comprobarConsumoEnergetico(pConsumo);
 				float pPrecioOk = this.precioFinal(pConsumo, pPeso, pPrecio);
-				datos.Lavarropas ElectroDat = new datos.Lavarropas(pPrecioOk, pPeso, pConsumoOk, pColorOk, pCarga,pDescripcion);
+				datos.Lavarropas ElectroDat = new datos.Lavarropas(pPrecioOk, pPeso, pConsumoOk, pColor, pCarga,pDescripcion);
 				ElectroDat.setIdElect(pIdLava);
+				ElectroDat.UpdateElect(ElectroDat);
 				return ElectroDat;
 			}
 

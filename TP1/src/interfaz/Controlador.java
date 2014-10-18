@@ -251,5 +251,37 @@ import java.util.*;
 		 }
  
  
+		 public void ActualizaElec(int pIdElect, float pPrecio, float pPeso, String pColor, char pConsumo, String pDescripcion)
+		 {
+			 ElectrodomesticoNegocio ElecNeg = new ElectrodomesticoNegocio();
+			 ElecNeg.UpdateElectro(pIdElect, pPrecio, pPeso, pColor, pConsumo, pDescripcion);
+			 
+		 }
+		 public void EliminaElec (int pIdElec)
+		 {
+			 ElectrodomesticoNegocio ElecNeg = new ElectrodomesticoNegocio();
+			 ElecNeg.DeleteElectro(pIdElec);
+		 }
 
+		 public void ActualizaTele(int pIdElect, float pPrecio, float pPeso, String pColor, char pConsumo, int pResolucion, boolean pSintoniz, String pDescripcion)
+		 {
+			TelevisorNegocio TeleNeg = new TelevisorNegocio();
+			TeleNeg.UpdateElectro(pIdElect, pPrecio, pPeso, pColor, pConsumo, pResolucion, pSintoniz, pDescripcion);
+		 }
+		 public void EliminaTele (int pIdElec)
+		 {
+			 TelevisorNegocio TelNeg = new TelevisorNegocio();
+			 TelNeg.DeleteTelev(pIdElec);
+		 }
+		 public void ActualizaLava(int pIdElect, float pPrecio, float pPeso, String pColor, char pConsumo,float pCarga, String pDescripcion)
+		 {
+			 LavarropasNegocio ElecNeg = new LavarropasNegocio();
+			 ElecNeg.UpdateElectro(pIdElect, pPrecio, pPeso, pColor, pConsumo, pCarga, pDescripcion);
+			 
+		 }
+		 public void EliminaLava(int pIdElec)
+		 {
+			 LavarropasNegocio ElecNeg = new LavarropasNegocio();
+			 ElecNeg.DeleteLavarropa(pIdElec);
+		 }
 }

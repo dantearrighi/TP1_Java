@@ -76,18 +76,14 @@ public class Lavarropas extends Electrodomestico
 	}
 	public void DeleteLavarrop(int pIdElec)
 	{
-		String SQLCons= "DELETE FROM Electrodomesticos where"+pIdElec+"=Electrodomesticos.id_electro";
+		String SQLCons= "DELETE FROM Electrodomesticos where ?=id_electro";
+		try {
 		ConexionBD conecta = new ConexionBD();
 		conecta.OpenConection();
-		Statement stmt = null;
-				try {
-					stmt = conecta.Cone.createStatement();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				try {
-					ResultSet rta = stmt.executeQuery(SQLCons);
+		PreparedStatement stmt = conecta.Cone.prepareStatement(SQLCons);
+		stmt.setInt(1, pIdElec);
+		int rta = stmt.executeUpdate();
+		
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -96,18 +92,19 @@ public class Lavarropas extends Electrodomestico
 		}
 	public int UpdateElect (Lavarropas Lavarr)
 	{
-		String SQLCons= "UPDATE Electrodomesticos SET ( descripcion="+Lavarr.getDescripcion()+",color_elect="+Lavarr.getColor()+", consumo_elect="+Lavarr.getConsumoEnergetico()+", precio_elect="+Lavarr.getPreciobase()+", peso_elect="+Lavarr.getPeso()+ ", carga_lava="+Lavarr.getCarga()+") WHERE"+Lavarr.getIdElect()+"=Electrodomesticos.id_electro";
-		ConexionBD conecta = new ConexionBD();
-		conecta.OpenConection();
-		Statement stmt = null;
-				try {
-					stmt = conecta.Cone.createStatement();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				try {
-					ResultSet rta = stmt.executeQuery(SQLCons);
+		String SQLCons= "UPDATE Electrodomestico SET descripcion=? ,color_elect=?, consumo_elect=?, precio_elect=?, peso_elect=?, carga_lava=? WHERE id_electro=?";
+		try{
+			ConexionBD conecta = new ConexionBD();
+			conecta.OpenConection();
+			PreparedStatement stmt = conecta.Cone.prepareStatement(SQLCons);
+			stmt.setString(2, Lavarr.getColor());
+			stmt.setObject(3, Lavarr.getConsumoEnergetico(),java.sql.Types.CHAR);
+			stmt.setFloat(4, Lavarr.getPreciobase());
+			stmt.setFloat(5, Lavarr.getPeso());
+			stmt.setFloat(6, Lavarr.getCarga());
+			stmt.setString(1, Lavarr.getDescripcion());
+			stmt.setInt(7, Lavarr.getIdElect());
+			int rta = stmt.executeUpdate();
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

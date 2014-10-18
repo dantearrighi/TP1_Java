@@ -75,6 +75,12 @@ public class Menu extends JFrame {
 		contentPane.add(btnBajaModif);
 		
 		JButton btnConsultaImpCons = new JButton("Consulta por Importes / Consumo");
+		btnConsultaImpCons.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				interfaz.Consultas frmConsulta = new Consultas();
+				frmConsulta.setVisible(true);
+			}
+		});
 		btnConsultaImpCons.setBounds(196, 274, 240, 42);
 		contentPane.add(btnConsultaImpCons);
 		
