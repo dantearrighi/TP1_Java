@@ -168,9 +168,9 @@ public class ElectrodomesticoNegocio {
 
 	public Electrodomestico UpdateElectro(int pIdElect, float pPrecio, float pPeso, String pColor, char pConsumo, String pDescripcion)
 	{
-		String pColorOk = this.comprobarColor(pColor);
+		/*String pColorOk = this.comprobarColor(pColor);*/
 		float pPrecioOk = this.precioFinal(pConsumo, pPeso, pPrecio);
-		Electrodomestico ElectroDat = new Electrodomestico(pPrecioOk, pPeso, pColorOk, pConsumo, pDescripcion);
+		Electrodomestico ElectroDat = new Electrodomestico(pPrecioOk, pPeso, pColor, pConsumo, pDescripcion);
 		ElectroDat.setIdElect(pIdElect);
 		ElectroDat.UpdateElect(ElectroDat);
 		return ElectroDat;
