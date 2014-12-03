@@ -21,7 +21,7 @@ import java.util.concurrent.Executor;
 
 
 public class ConexionBD {
-/*Esta es la clase de Conexion a la Base de Datos @Ramon*/
+/*Sarasa*/
     Connection Cone = null;
 	static String Url = "jdbc:mysql://localhost:3306/";
 	static String dbName = "Electro_db";
